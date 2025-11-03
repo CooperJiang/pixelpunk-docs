@@ -1,0 +1,50 @@
+# PixelPunk Website Docker Compose
+
+version: '3.8'
+
+services:
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pixelpunk-website
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - pixelpunk-network
+    restart: unless-stopped
+    labels:
+      - "com.pixelpunk.service=website"
+      - "com.pixelpunk.version=1.0.0"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # 可选: 添加 SSL 支持
+  nginx-ssl:
+    image: nginx:alpine
+    container_name: pixelpunk-ssl
+    ports:
+      - "443:443"
+    volumes:
+      - ./ssl/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./ssl/certs:/etc/ssl/certs
+      - ./ssl/private:/etc/ssl/private
+    depends_on:
+      - website
+    networks:
+      - pixelpunk-network
+    restart: unless-stopped
+    profiles:
+      - ssl
+
+networks:
+  pixelpunk-network:
+    driver: bridge
+    labels:
+      - "com.pixelpunk.network=website"

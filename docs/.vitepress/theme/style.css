@@ -1,0 +1,1009 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 浅色主题 (默认) - 优化配色以确保良好的对比度 */
+:root {
+  /* VitePress 品牌色系 - 使用较深的赛博蓝确保可读性 */
+  --vp-c-brand: #0891b2;
+  --vp-c-brand-light: #06b6d4;
+  --vp-c-brand-lighter: #67e8f9;
+  --vp-c-brand-dark: #0e7490;
+  --vp-c-brand-darker: #155e75;
+
+  /* 文字颜色 - 浅色主题下的深色文字，确保高对比度 */
+  --vp-c-text-1: #1a1a1a;
+  --vp-c-text-2: #374151;
+  --vp-c-text-3: #6b7280;
+  
+  /* 背景色 - 浅色主题保持明亮但略带科技感 */
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-alt: #f8fafc;
+  --vp-c-bg-elv: #f1f5f9;
+  --vp-c-bg-soft: #f8fafc;
+  
+  /* 边框和分隔线 - 确保可见度 */
+  --vp-c-divider: #cbd5e1;
+  --vp-c-divider-light: #e2e8f0;
+  
+  /* 状态颜色 - 使用更深的色调确保对比度 */
+  --vp-c-tip: #0891b2;
+  --vp-c-warning: #d97706;
+  --vp-c-danger: #dc2626;
+  --vp-c-info: #7c3aed;
+  
+  /* 首页英雄区配色 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(135deg, #0891b2 0%, #7c3aed 50%, #dc2626 100%);
+  
+  --vp-home-hero-image-background-image: linear-gradient(135deg, #0891b2 0%, #7c3aed 50%, #dc2626 100%);
+  --vp-home-hero-image-filter: blur(40px);
+
+  /* 自定义赛博朋克变量 - 浅色主题 */
+  --cyber-bg-primary: #ffffff;
+  --cyber-bg-secondary: #f8fafc;
+  --cyber-bg-tertiary: #f1f5f9;
+  --cyber-text-primary: #1a1a1a;
+  --cyber-text-secondary: #374151;
+  --cyber-text-tertiary: #6b7280;
+  --cyber-border: rgba(8, 145, 178, 0.2);
+  --cyber-border-hover: rgba(8, 145, 178, 0.3);
+  --cyber-shadow: rgba(8, 145, 178, 0.1);
+  --cyber-matrix-opacity: 0.02;
+  --cyber-effect-opacity: 0.3;
+  
+  /* 赛博朋克专用色彩变量 */
+  --cyber-primary: #0891b2;
+  --cyber-secondary: #dc2626;
+  --cyber-accent: #7c3aed;
+  --cyber-warning: #d97706;
+}
+
+/* 修复首页底部距离问题 - 全屏幕生效 */
+.VPHome {
+  margin-bottom: 0 !important;
+  overflow-x: hidden !important;
+}
+
+/* 修复GSAP动画导致的双滚动条问题 */
+.cyber-layout {
+  overflow: visible !important;
+}
+
+/* 在动画期间防止滚动条闪烁 */
+.cyber-layout[style*="opacity: 0"],
+.cyber-layout[style*="opacity: 0."] {
+  overflow: hidden !important;
+}
+
+/* VitePress布局容器优化 */
+.VPLayout {
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+}
+
+.VPContent {
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+  /* 支持动画效果 */
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* 页面内容动画优化 */
+.VPContent section,
+.VPContent .hero-section {
+  transform-origin: center center;
+  backface-visibility: hidden;
+}
+
+/* 确保主文档区域不产生额外滚动条 */
+.VPDoc {
+  overflow-x: hidden !important;
+  overflow-y: visible !important;
+  max-height: none !important;
+}
+
+
+/* 暗色主题 - 专业赛博朋克深色系统（完全参考图床程序配色） */
+[data-theme="dark"] {
+  /* VitePress 品牌色系 - 使用图床程序的鲜艳赛博蓝 */
+  --vp-c-brand: #00ffff;
+  --vp-c-brand-light: #33ffff;
+  --vp-c-brand-lighter: #66ffff;
+  --vp-c-brand-dark: #00cccc;
+  --vp-c-brand-darker: #009999;
+
+  /* 文字颜色 - 参考图床程序的高对比度文字 */
+  --vp-c-text-1: #ffffff;          /* 主标题 - 纯白最高对比 */
+  --vp-c-text-2: #f0f0f0;          /* 次要文字 - 接近纯白 */
+  --vp-c-text-3: #d0d0d0;          /* 第三级文字 - 浅灰但保持可读性 */
+  
+  /* 背景色 - 深蓝紫色系统（完全参考图床程序） */
+  --vp-c-bg: #1a1625;              /* 主背景 - 深紫蓝 */
+  --vp-c-bg-alt: #0f0c1a;          /* 最深背景 - 接近黑的深紫 */
+  --vp-c-bg-elv: #241d35;          /* 表面背景 - 稍亮的紫蓝 */
+  --vp-c-bg-soft: #2d2640;         /* 柔和背景 - 中等紫蓝调 */
+  
+  /* 边框和分隔线 - 增强赛博朋克感 */
+  --vp-c-divider: rgba(0, 255, 255, 0.2);    /* 主要边框 - 赛博蓝透明 */
+  --vp-c-divider-light: rgba(0, 255, 255, 0.1);   /* 细微边框 - 淡赛博蓝 */
+  
+  /* 状态颜色 - 鲜艳的赛博朋克色彩 */
+  --vp-c-tip: #00ffff;
+  --vp-c-warning: #ff0080;
+  --vp-c-danger: #ff0040;
+  --vp-c-info: #8000ff;
+  
+  /* 首页英雄区深色配色 - 使用图床程序配色 */
+  --vp-home-hero-name-background: linear-gradient(135deg, #00ffff 0%, #ff0080 50%, #8000ff 100%);
+  --vp-home-hero-image-background-image: linear-gradient(135deg, #00ffff 0%, #ff0080 50%, #8000ff 100%);
+
+  /* 自定义赛博朋克变量 - 完全参考图床程序 */
+  --cyber-bg-primary: #1a1625;     /* 主背景 - 深紫蓝 */
+  --cyber-bg-secondary: #0f0c1a;   /* 最深背景 */
+  --cyber-bg-tertiary: #241d35;    /* 表面背景 */
+  --cyber-text-primary: #ffffff;   /* 纯白主文字 */
+  --cyber-text-secondary: #f0f0f0; /* 接近纯白次要文字 */
+  --cyber-text-tertiary: #d0d0d0;  /* 高可读性第三级文字 */
+  --cyber-border: rgba(0, 255, 255, 0.25);
+  --cyber-border-hover: rgba(0, 255, 255, 0.4);
+  --cyber-shadow: rgba(0, 255, 255, 0.2);
+  --cyber-matrix-opacity: 0.06;
+  --cyber-effect-opacity: 1;
+  
+  /* 深色主题专用赛博朋克变量 - 图床程序风格 */
+  --cyber-primary: #00ffff;        /* 鲜艳赛博蓝 */
+  --cyber-secondary: #ff0080;      /* 鲜艳赛博粉 */
+  --cyber-accent: #8000ff;         /* 鲜艳赛博紫 */
+  --cyber-warning: #ffff00;        /* 鲜艳赛博黄 */
+  --cyber-surface: #2d2640;        /* 表面色 */
+  --cyber-card: #241d35;           /* 卡片背景 */
+  --cyber-hover: #3d3554;          /* 悬浮态 */
+  --cyber-overlay: rgba(15, 12, 26, 0.9);  /* 遮罩层 */
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'IBM Plex Sans', 'Inter', system-ui, sans-serif;
+  background: var(--cyber-bg-primary);
+  color: var(--cyber-text-primary);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* 修复轮播组件导致的横向滚动问题 */
+.testimonials-carousel,
+.carousel-container {
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.carousel-track {
+  display: flex !important;
+  max-width: none !important;
+}
+
+/* 深邃赛博朋克背景效果 */
+[data-theme="dark"] body {
+  background: radial-gradient(ellipse at top, #0f1627 0%, #0a0d1a 50%, #060811 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* 主容器背景渐变 */
+[data-theme="dark"] .VPHome,
+[data-theme="dark"] .VPContent,
+[data-theme="dark"] .VPDoc {
+  background: transparent;
+}
+
+/* 页面整体深邃背景层 */
+[data-theme="dark"]:before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(5, 217, 232, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(157, 76, 237, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(255, 42, 109, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* 增强矩阵雨效果透明度 */
+[data-theme="dark"] .matrix-rain {
+  opacity: 0.12;
+}
+
+/* 增强发光效果 */
+[data-theme="dark"] .glow-text {
+  text-shadow: 
+    0 0 5px currentColor, 
+    0 0 10px currentColor, 
+    0 0 15px currentColor,
+    0 0 20px currentColor;
+}
+
+/* 增强标题发光 */
+[data-theme="dark"] h1, 
+[data-theme="dark"] h2, 
+[data-theme="dark"] h3 {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* 全局按钮样式 - 确保文字可读性 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--vp-c-brand) 0%, var(--vp-c-brand-light) 100%);
+  color: #ffffff !important;
+  border: 1px solid var(--vp-c-brand);
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(8, 145, 178, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--vp-c-brand-light) 0%, var(--vp-c-brand-lighter) 100%);
+  color: #ffffff !important;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 25px rgba(8, 145, 178, 0.4);
+}
+
+.btn-primary * {
+  color: #ffffff !important;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--vp-c-brand-dark) 0%, var(--vp-c-brand-darker) 100%);
+  color: #ffffff !important;
+  border: 1px solid var(--vp-c-brand-dark);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(8, 145, 178, 0.25);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, var(--vp-c-brand) 0%, var(--vp-c-brand-dark) 100%);
+  color: #ffffff !important;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 25px rgba(8, 145, 178, 0.4);
+}
+
+.btn-secondary * {
+  color: #ffffff !important;
+}
+
+.btn-ghost {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(31, 41, 55, 0.8) 100%);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-ghost:hover {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(31, 41, 55, 0.9) 100%);
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-ghost * {
+  color: #ffffff !important;
+}
+
+/* 深色主题下的按钮增强 */
+[data-theme="dark"] .btn-primary {
+  background: linear-gradient(135deg, var(--cyber-primary) 0%, rgba(0, 255, 255, 0.8) 100%);
+  color: #000000 !important;
+  text-shadow: none;
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.25), 0 0 15px rgba(0, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.9) 0%, rgba(0, 255, 255, 1) 100%);
+  color: #000000 !important;
+  box-shadow: 0 6px 25px rgba(0, 255, 255, 0.4), 0 0 25px rgba(0, 255, 255, 0.25);
+}
+
+[data-theme="dark"] .btn-primary * {
+  color: #000000 !important;
+}
+
+[data-theme="dark"] .btn-secondary {
+  background: linear-gradient(135deg, var(--cyber-accent) 0%, rgba(128, 0, 255, 0.8) 100%);
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(128, 0, 255, 0.25);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  background: linear-gradient(135deg, rgba(128, 0, 255, 0.9) 0%, rgba(128, 0, 255, 1) 100%);
+  color: #ffffff !important;
+  box-shadow: 0 6px 25px rgba(128, 0, 255, 0.4);
+}
+
+[data-theme="dark"] .btn-secondary * {
+  color: #ffffff !important;
+}
+
+/* 导航栏样式优化 - 适配浅色和深色主题 */
+.VPNav {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid var(--cyber-border) !important;
+  transition: all 0.3s ease !important;
+}
+
+[data-theme="dark"] .VPNav {
+  background-color: rgba(10, 13, 26, 0.9) !important;  /* 深邃背景 */
+  border-bottom: 1px solid rgba(5, 217, 232, 0.2) !important;
+  box-shadow: 0 1px 20px rgba(5, 217, 232, 0.1) !important;
+}
+
+.VPNavBar {
+  background: transparent !important;
+}
+
+/* 浅色主题导航栏标题 */
+.VPNavBarTitle .title {
+  color: var(--cyber-text-primary) !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+}
+
+.VPNavBarTitle .title:hover {
+  color: var(--cyber-primary) !important;
+}
+
+/* 深色主题导航栏标题 */
+[data-theme="dark"] .VPNavBarTitle .title {
+  color: #ffffff !important;  /* 纯白标题 */
+  text-shadow: 0 0 15px rgba(5, 217, 232, 0.4) !important;
+}
+
+[data-theme="dark"] .VPNavBarTitle .title:hover {
+  text-shadow: 0 0 20px rgba(5, 217, 232, 0.6) !important;
+}
+
+/* 浅色主题导航链接 */
+.VPNavBarMenuLink {
+  color: var(--cyber-text-secondary) !important;
+  transition: all 0.3s ease !important;
+  font-weight: 500 !important;
+}
+
+.VPNavBarMenuLink:hover {
+  color: var(--cyber-text-primary) !important;
+  transform: translateY(-1px) !important;
+}
+
+.VPNavBarMenuLink.active {
+  color: var(--cyber-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* 深色主题导航链接 */
+[data-theme="dark"] .VPNavBarMenuLink {
+  color: #e6e6e6 !important;  /* 高对比度链接文字 */
+}
+
+[data-theme="dark"] .VPNavBarMenuLink:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 10px rgba(5, 217, 232, 0.5) !important;
+}
+
+[data-theme="dark"] .VPNavBarMenuLink.active {
+  color: var(--cyber-primary) !important;
+  text-shadow: 0 0 12px rgba(5, 217, 232, 0.6) !important;
+}
+
+/* 移动端导航菜单 - 适配浅色和深色主题 */
+.VPNavScreenMenu {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid var(--cyber-border) !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow: 0 10px 40px var(--cyber-shadow) !important;
+}
+
+[data-theme="dark"] .VPNavScreenMenu {
+  background: rgba(10, 13, 26, 0.95) !important;
+  border: 1px solid rgba(5, 217, 232, 0.2) !important;
+  box-shadow: 0 10px 40px rgba(5, 217, 232, 0.1) !important;
+}
+
+/* 侧边栏深色主题样式 - 深邃赛博朋克风格 */
+.VPSidebar {
+  background: var(--cyber-bg-secondary) !important;
+  border-right: 1px solid var(--cyber-border) !important;
+  transition: all 0.3s ease !important;
+}
+
+[data-theme="dark"] .VPSidebar {
+  background: rgba(15, 19, 25, 0.95) !important;  /* 深邃侧边栏背景 */
+  border-right: 1px solid rgba(5, 217, 232, 0.15) !important;
+  backdrop-filter: blur(15px) !important;
+  box-shadow: 2px 0 20px rgba(5, 217, 232, 0.05) !important;
+}
+
+.VPSidebarNav > .group + .group,
+.VPSidebarNav > .item + .group,
+.VPSidebarNav > .group + .item,
+.VPSidebarNav > .item + .item {
+  border-top: 1px solid rgba(42, 52, 65, 0.6) !important;
+}
+
+.VPSidebarGroup .title {
+  color: #ffffff !important;  /* 纯白标题 */
+  font-weight: 700 !important;
+  text-shadow: 0 0 10px rgba(5, 217, 232, 0.4) !important;
+  font-size: 0.9rem !important;
+}
+
+.VPSidebarItem .link {
+  color: #e6e6e6 !important;  /* 高对比度链接 */
+  transition: all 0.3s ease !important;
+  border-radius: 0.5rem !important;
+  font-weight: 450 !important;
+}
+
+.VPSidebarItem .link:hover {
+  color: #ffffff !important;
+  background: rgba(5, 217, 232, 0.08) !important;
+  text-shadow: 0 0 8px rgba(5, 217, 232, 0.4) !important;
+  transform: translateX(4px) !important;
+}
+
+.VPSidebarItem .link.active {
+  color: #ffffff !important;  /* 激活状态纯白 */
+  background: linear-gradient(135deg, rgba(5, 217, 232, 0.15), rgba(157, 76, 237, 0.1)) !important;
+  border: 1px solid rgba(5, 217, 232, 0.3) !important;
+  text-shadow: 0 0 12px rgba(5, 217, 232, 0.6) !important;
+  box-shadow: 0 0 15px rgba(5, 217, 232, 0.15) !important;
+  font-weight: 600 !important;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cyber-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-light));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--vp-c-brand-light), var(--vp-c-brand-lighter));
+}
+
+/* 左侧边栏滚动条优化 - 默认隐藏，滚动时显示，更窄 */
+.VPSidebar,
+.VPSidebarGroup,
+.VPSidebarNav {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+
+.VPSidebar::-webkit-scrollbar,
+.VPSidebarGroup::-webkit-scrollbar,
+.VPSidebarNav::-webkit-scrollbar {
+  width: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.VPSidebar::-webkit-scrollbar-track,
+.VPSidebarGroup::-webkit-scrollbar-track,
+.VPSidebarNav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.VPSidebar::-webkit-scrollbar-thumb,
+.VPSidebarGroup::-webkit-scrollbar-thumb,
+.VPSidebarNav::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 136, 0.3);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+/* 滚动时显示滚动条 */
+.VPSidebar:hover::-webkit-scrollbar,
+.VPSidebarGroup:hover::-webkit-scrollbar,
+.VPSidebarNav:hover::-webkit-scrollbar,
+.VPSidebar:active::-webkit-scrollbar,
+.VPSidebarGroup:active::-webkit-scrollbar,
+.VPSidebarNav:active::-webkit-scrollbar {
+  opacity: 1;
+}
+
+.VPSidebar:hover::-webkit-scrollbar-thumb,
+.VPSidebarGroup:hover::-webkit-scrollbar-thumb,
+.VPSidebarNav:hover::-webkit-scrollbar-thumb,
+.VPSidebar:active::-webkit-scrollbar-thumb,
+.VPSidebarGroup:active::-webkit-scrollbar-thumb,
+.VPSidebarNav:active::-webkit-scrollbar-thumb {
+  opacity: 1;
+  background: rgba(0, 255, 136, 0.6);
+}
+
+.VPSidebar:hover::-webkit-scrollbar-thumb:hover,
+.VPSidebarGroup:hover::-webkit-scrollbar-thumb:hover,
+.VPSidebarNav:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 136, 0.8);
+}
+
+/* Firefox 滚动条优化 */
+.VPSidebar:hover,
+.VPSidebarGroup:hover,
+.VPSidebarNav:hover {
+  scrollbar-color: rgba(0, 255, 136, 0.6) transparent;
+}
+
+/* 修复VitePress文档页面导航栏布局问题 */
+.VPNav .VPNavBar {
+  background: var(--cyber-bg-primary) !important;
+  backdrop-filter: blur(12px) !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 1000 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 特别针对VitePress的导航栏结构 */
+.VPNavBar,
+nav.VPNavBar {
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 1000 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transition: background-color 0.3s ease, border-bottom 0.3s ease !important;
+}
+
+/* 滚动时的导航栏样式 */
+.VPNavBar.scrolled,
+nav.VPNavBar.scrolled {
+  background: var(--cyber-bg-primary) !important;
+  border-bottom: 1px solid var(--cyber-border) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* 修复文档页面导航栏内容宽度和布局 */
+.VPNav .VPNavBar .container,
+.VPNav .VPNavBar .content,
+.VPNavBar .container,
+.VPNavBar .content {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  position: relative !important;
+}
+
+/* 专门修复有侧边栏时的导航栏问题 */
+.VPNavBar.has-sidebar .content,
+.VPNavBar.has-sidebar .container {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* 搜索框默认隐藏，避免首页刷新时闪烁 */
+.VPNavBarSearch {
+  display: none !important;
+  flex: 1 1 auto !important;
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
+  max-width: 300px !important;
+}
+
+/* 非首页时显示搜索框 */
+.VPNavBarSearch.show {
+  display: flex !important;
+}
+
+/* 导航栏布局 - 搜索框紧贴标题 */
+.VPNavBarTitle {
+  flex: 0 0 auto !important;
+}
+
+.VPNavBarMenu {
+  flex: 0 0 auto !important;
+  margin-left: 1rem !important;
+}
+
+.VPNavBarSocialLinks {
+  flex: 0 0 auto !important;
+  margin-right: 0.5rem !important;
+}
+
+.VPNavBarExtra,
+.VPSwitchAppearance {
+  flex: 0 0 auto !important;
+}
+
+/* 移除标题的底部边框 */
+.VPNavBarTitle.has-sidebar .title {
+  border-bottom: none !important;
+}
+
+/* 响应式导航栏布局 */
+@media (min-width: 768px) {
+  .VPNavBarSearch {
+    margin-left: 1.5rem !important;
+    max-width: 350px !important;
+    margin-right: 1.5rem !important;
+  }
+  
+  .VPNavBarMenu {
+    margin-left: 1.5rem !important;
+  }
+  
+  .VPNavBarSocialLinks {
+    margin-right: 1rem !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .VPNavBar .container,
+  .VPNavBar .content {
+    gap: 8px !important;
+  }
+  
+  .VPNavBarSearch {
+    margin-left: 0.75rem !important;
+    max-width: 200px !important;
+    margin-right: 0.5rem !important;
+  }
+  
+  .VPNavBarMenu {
+    margin-left: 0.75rem !important;
+  }
+  
+  .VPNavBarSocialLinks {
+    margin-right: 0.25rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .VPNavBarSearch {
+    margin-left: 0.5rem !important;
+    max-width: 150px !important;
+  }
+  
+  .VPNavBarMenu {
+    margin-left: 0.5rem !important;
+  }
+}
+
+/* 右侧 Aside 目录导航 - 固定位置不随页面滚动 */
+.VPDocAside {
+  position: sticky !important;
+  top: var(--vp-nav-height, 64px) !important;
+  max-height: calc(100vh - var(--vp-nav-height, 64px)) !important;
+  overflow-y: auto !important;
+  z-index: 10 !important;
+}
+
+.VPDocAsideOutline {
+  position: sticky !important;
+  top: 0 !important;
+}
+
+/* 针对实际的页面导航元素 */
+nav[aria-label="页面导航"],
+navigation[aria-label="页面导航"],
+.VPDocOutline,
+.VPDocAsideNav {
+  position: sticky !important;
+  top: var(--vp-nav-height, 64px) !important;
+  max-height: calc(100vh - var(--vp-nav-height, 64px)) !important;
+  overflow-y: auto !important;
+  z-index: 10 !important;
+}
+
+/* 更通用的右侧导航选择器 */
+.VPDoc aside,
+.VPDoc .aside,
+.VPDocLayout aside {
+  position: sticky !important;
+  top: var(--vp-nav-height, 64px) !important;
+  max-height: calc(100vh - var(--vp-nav-height, 64px)) !important;
+  overflow-y: auto !important;
+  z-index: 10 !important;
+}
+
+/* 确保文档布局正确 */
+.VPDoc {
+  position: relative !important;
+}
+
+/* 右侧导航滚动条优化 */
+.VPDocAside::-webkit-scrollbar {
+  width: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.VPDocAside::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.VPDocAside::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 136, 0.3);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+.VPDocAside:hover::-webkit-scrollbar {
+  opacity: 1;
+}
+
+.VPDocAside:hover::-webkit-scrollbar-thumb {
+  opacity: 1;
+  background: rgba(0, 255, 136, 0.6);
+}
+
+.VPDocAside:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 136, 0.8);
+}
+
+/* 选中文本样式 */
+::selection {
+  background: rgba(0, 255, 136, 0.3);
+  color: var(--cyber-text-primary);
+}
+
+[data-theme="light"] ::selection {
+  background: rgba(0, 170, 102, 0.2);
+  color: var(--cyber-text-primary);
+}
+
+/* 链接样式 */
+a {
+  color: var(--vp-c-brand);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--vp-c-brand-light);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+[data-theme="light"] a:hover {
+  text-shadow: 0 0 10px rgba(0, 170, 102, 0.3);
+}
+
+/* 标题样式 */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--cyber-text-primary);
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, var(--vp-c-brand) 0%, var(--vp-c-brand-light) 50%, var(--vp-c-brand-lighter) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--vp-c-brand);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--vp-c-brand-light);
+}
+
+/* 代码块样式 */
+code {
+  font-family: 'JetBrains Mono', Monaco, Consolas, monospace;
+  background: var(--cyber-border);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--cyber-border);
+  color: var(--cyber-text-primary);
+}
+
+pre {
+  background: var(--cyber-bg-secondary) !important;
+  border: 1px solid var(--cyber-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  position: relative;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  border: none;
+  font-size: 0.9rem;
+}
+
+/* 表格样式 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background: var(--cyber-bg-secondary);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--cyber-border);
+  color: var(--cyber-text-primary);
+}
+
+th {
+  background: var(--cyber-border);
+  font-weight: 600;
+  color: var(--vp-c-brand);
+}
+
+tr:hover {
+  background: var(--cyber-border);
+}
+
+/* 按钮样式 */
+.btn {
+  @apply inline-flex items-center px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out;
+}
+
+.btn-primary {
+  @apply text-white;
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-light));
+  box-shadow: 0 0 20px var(--cyber-border);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 30px var(--cyber-border-hover);
+  transform: translateY(-2px);
+}
+
+[data-theme="light"] .btn-primary {
+  @apply text-white;
+  box-shadow: 0 4px 20px var(--cyber-shadow);
+}
+
+.btn-secondary {
+  border: 2px solid var(--vp-c-brand);
+  color: var(--vp-c-brand);
+  background: transparent;
+}
+
+.btn-secondary:hover {
+  background: var(--vp-c-brand);
+  color: white;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 2px solid var(--cyber-border);
+  color: var(--cyber-text-primary);
+}
+
+.btn-ghost:hover {
+  background: var(--cyber-border);
+  border-color: var(--cyber-border-hover);
+}
+
+/* 卡片样式 */
+.card {
+  background: var(--cyber-bg-secondary);
+  border: 1px solid var(--cyber-border);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px var(--cyber-shadow);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--cyber-border-hover);
+  box-shadow: 0 12px 48px var(--cyber-shadow);
+}
+
+/* 发光效果 */
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px var(--vp-c-brand);
+}
+
+[data-theme="light"] .glow-text {
+  text-shadow: 0 0 10px var(--vp-c-brand);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+  
+  .btn {
+    @apply px-4 py-2 text-sm;
+  }
+}
