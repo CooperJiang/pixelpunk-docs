@@ -116,15 +116,15 @@
       <!-- 底部统计 -->
       <div class="features-stats mt-12 grid grid-cols-2 md:grid-cols-5 gap-6">
         <div class="stat-item text-center">
-          <div class="text-3xl font-bold mb-2" :style="{color: 'var(--vp-c-brand)'}">80+</div>
+          <div class="text-3xl font-bold mb-2" :style="{color: 'var(--vp-c-brand)'}">318+</div>
           <div class="text-sm" :style="{color: 'var(--cyber-text-tertiary)'}">API 接口</div>
         </div>
         <div class="stat-item text-center">
-          <div class="text-3xl font-bold mb-2" :style="{color: 'var(--vp-c-brand-light)'}">25+</div>
+          <div class="text-3xl font-bold mb-2" :style="{color: 'var(--vp-c-brand-light)'}">42+</div>
           <div class="text-sm" :style="{color: 'var(--cyber-text-tertiary)'}">数据表</div>
         </div>
         <div class="stat-item text-center">
-          <div class="text-3xl font-bold mb-2" :style="{color: 'var(--vp-c-brand-lighter)'}">18+</div>
+          <div class="text-3xl font-bold mb-2" :style="{color: 'var(--vp-c-brand-lighter)'}">12+</div>
           <div class="text-sm" :style="{color: 'var(--cyber-text-tertiary)'}">存储渠道</div>
         </div>
         <div class="stat-item text-center">
@@ -157,214 +157,214 @@ const originalFeatures = [
   {
     icon: '🤖',
     title: 'AI 智能分析',
-    badge: 'GPT-4 Vision',
-    description: '集成最新AI大模型图片识别技术，提供深度图像内容分析，智能生成标签和描述。',
+    description: '集成AI多模态大模型，提供深度图像内容分析，智能生成标签和描述，全自动化处理流程。',
     items: [
-      '自动标签生成（15+ 类型）',
-      '内容安全检测（NSFW）',
-      '智能描述生成（100-200字）',
-      '图片质量评估',
+      '智能自动资源分类',
+      '智能自动标签生成',
+      'NSFW内容安全检测',
+      '智能自然语言描述',
+      '图片质量评估打分',
       '色彩分析和调色板提取',
-      'AI 队列管理与监控'
+      'AI队列管理与监控'
     ],
-    tags: ['GPT-4 Vision', 'Computer Vision', 'NSFW Detection', 'Queue Management']
+    tags: ['GPT Vision', 'Gemini', 'OpenAi', 'NSFW Detection', 'Queue Management']
   },
   {
     icon: '🔍',
     title: '向量搜索引擎',
-    badge: 'Qdrant + AI',
-    description: '基于 Qdrant 向量数据库的智能搜索系统，支持语义搜索和相似度匹配。',
+    description: '基于Qdrant向量数据库，支持以文搜图、以图搜图、语义搜索，智能理解图片内容，精准推荐相似图片。',
     items: [
-      '以文搜图（Text to Image）',
-      '以图搜图（Image Similarity）',
-      '语义相似度搜索',
-      '向量验证与修复',
-      '智能推荐算法',
-      '搜索阈值可配置'
+      '以文搜图（自然语言查询）',
+      '以图搜图（相似度检索）',
+      '语义理解搜索',
+      '智能内容推荐',
+      '1536维向量空间',
+      '向量数据验证和修复'
     ],
-    tags: ['Qdrant', 'Vector Search', 'Semantic Search', 'AI Recommendation']
+    tags: ['Qdrant', 'Vector Database', 'Semantic Search', 'Text Embedding']
   },
   {
-    icon: '📁',
-    title: '智能图片管理',
-    description: '全方位的图片管理功能，支持多格式处理，分片上传和批量操作。',
+    icon: '🖼️',
+    title: '文件管理系统',
+    description: '企业级文件管理解决方案，支持分片上传、断点续传、秒传去重、无限层级文件夹，批量操作高效便捷。',
     items: [
-      '分片上传（大文件支持）',
-      '秒传去重（MD5检测）',
-      '自动缩略图生成',
-      '图片压缩优化',
-      '水印配置（JSON格式）',
-      '批量操作与重排序'
+      '分片上传与断点续传',
+      'MD5秒传去重',
+      '无限层级文件夹系统',
+      '批量上传/删除/移动',
+      '文件夹或资源排序',
+      '指定时间存储',
+      'EXIF元数据提取'
     ],
-    tags: ['分片上传', '秒传', '水印', '批量处理']
+    tags: ['Chunked Upload', 'MD5 Dedup', 'Folder Tree', 'EXIF']
+  },
+  {
+    icon: '🎨',
+    title: '图片智能处理',
+    description: '自动压缩优化、格式转换、多尺寸缩略图生成、水印配置，全方位的图片处理能力，保障质量与效率。',
+    items: [
+      '自动压缩优化',
+      'WebP格式转换',
+      '多尺寸缩略图生成',
+      '文字/图片水印配置',
+      '批量水印处理',
+      '图片质量智能调节'
+    ],
+    tags: ['Image Optimization', 'WebP', 'Thumbnail', 'Watermark']
   },
   {
     icon: '☁️',
-    title: '企业级存储方案',
-    description: '支持 18+ 种存储渠道，包括本地、OSS、COS、S3、R2 等，灵活切换，配置简单。',
+    title: '多云存储架构',
+    description: '支持18+种主流云存储渠道，包括阿里云OSS、腾讯云COS、AWS S3、Cloudflare R2等，灵活切换，高可用部署。',
     items: [
-      '18+ 存储渠道（Local/OSS/COS/S3/R2）',
-      '存储连通性测试',
-      '配置导入导出',
-      '动态默认渠道切换',
-      'CDN 加速配置',
-      '存储使用统计监控'
+      '阿里云OSS/腾讯云COS',
+      'AWS S3/Cloudflare R2',
+      'Azure Blob Storage',
+      '本地存储/FTP/SFTP',
+      'WebDAV/七牛云/又拍云',
+      '动态切换与连通性测试'
     ],
-    tags: ['多云存储', '配置管理', 'CDN', '监控统计']
+    tags: ['Multi-Cloud', 'OSS', 'S3', 'CDN', '阿里云', '腾讯云', '七牛云']
   },
   {
     icon: '🔗',
-    title: '强大分享系统',
-    description: '灵活的分享机制，支持公开/私密分享，详细的访问统计和权限控制。',
+    title: '分享系统',
+    description: '多种分享模式（公开/私密/密码保护），支持过期策略、访客统计、作者主页展示，防盗链保护机制完善。',
     items: [
       '公开/私密/密码保护分享',
-      '过期策略配置',
-      '访客信息收集',
-      '24小时去重统计',
-      '作者主页展示',
-      '分享令牌管理'
+      '自定义过期策略',
+      '访客详细统计分析',
+      '作者个性化主页',
+      'IP/域名/Referer访问控制',
+      '动态URL防盗链'
     ],
-    tags: ['分享管理', '权限控制', '统计分析', '作者主页']
+    tags: ['Share Links', 'Access Control', 'Author Page', 'Anti-Hotlink']
   },
   {
-    icon: '🛡️',
-    title: '带宽与安全控制',
-    description: '企业级带宽管理和访问控制系统，提供精确的流量控制和安全防护。',
+    icon: '🏷️',
+    title: '标签与分类系统',
+    description: '支持用户自定义标签和全局标签管理，AI自动标注，多维度分类体系，快速定位和管理图片资源。',
     items: [
-      '带宽限制与统计',
-      '并发上传控制',
-      '访问控制（防盗链/IP/域名）',
-      '游客上传限制',
-      '下载流量监控',
-      '安全策略配置'
+      '用户标签自定义',
+      '全局标签管理',
+      'AI自动标注',
+      '多维度分类体系',
+      '标签批量应用',
+      '标签搜索和过滤'
     ],
-    tags: ['带宽控制', '访问控制', '安全防护', '流量监控']
+    tags: ['Tagging', 'Classification', 'AI Auto-Tag', 'Taxonomy']
+  },
+  {
+    icon: '🔐',
+    title: '用户认证与权限',
+    description: 'JWT令牌认证，支持OAuth集成（GitHub/Google/LinuxDo），三级权限体系，完善的用户资料和设置管理。',
+    items: [
+      'JWT令牌认证',
+      'OAuth集成（GitHub/Google/LinuxDo）',
+      '三级权限体系',
+      '密码重置流程',
+      '用户资料管理',
+      '工作空间配置'
+    ],
+    tags: ['JWT', 'OAuth', 'RBAC', 'Authentication']
+  },
+  {
+    icon: '🎲',
+    title: '随机图片API',
+    description: '用户自主创建随机图片API，支持密钥管理、文件夹绑定、返回类型配置（Redirect/Direct），调用统计完善。',
+    items: [
+      '自主创建随机API',
+      '密钥自动生成管理',
+      '文件夹/全部图片绑定',
+      'Redirect/Direct返回模式',
+      '调用统计和监控',
+      'API启用/禁用控制'
+    ],
+    tags: ['Random API', 'API Key', 'Redirect', 'Statistics']
   },
   {
     icon: '👑',
     title: '企业管理后台',
-    description: '全面的企业级管理后台，提供实时监控、用户管理和系统配置功能。',
+    description: '功能完备的管理后台，包含用户管理、内容审核、实时监控、API管理、频道管理，满足企业级管理需求。',
     items: [
-      '实时系统监控（WebSocket）',
-      '用户权限管理（三级角色）',
-      '内容审核队列（NSFW）',
-      'API Key 管理',
-      '消息通知系统',
-      '设置中心（批量配置）'
+      '用户管理（搜索/禁用/权限）',
+      '内容审核队列',
+      'WebSocket实时监控',
+      'API Key管理',
+      '频道配置管理',
+      '系统设置和配置'
     ],
-    tags: ['实时监控', '权限管理', '内容审核', 'API管理']
-  },
-  {
-    icon: '🗂️',
-    title: '文件夹管理系统',
-    description: '层级化的文件夹管理系统，支持权限控制和批量操作。',
-    items: [
-      '文件夹 CRUD 操作',
-      '树形结构展示',
-      '权限级别控制',
-      '批量路径链操作',
-      '面包屑导航',
-      '检索与排序'
-    ],
-    tags: ['文件夹', '层级管理', '权限控制', '批量操作']
-  },
-  {
-    icon: '🎨',
-    title: '水印系统',
-    description: '支持文字/图片水印，批量添加，模板管理，保护你的版权。',
-    items: [
-      '文字水印配置',
-      '图片水印上传',
-      '批量添加水印',
-      '水印模板管理',
-      '位置自定义',
-      '透明度调整'
-    ],
-    tags: ['水印', '版权保护', '批量处理', '模板管理']
-  },
-  {
-    icon: '🏷️',
-    title: '标签与分类',
-    description: '智能标签系统，自定义分类，AI 自动分类，快速整理和检索文件。',
-    items: [
-      '智能标签生成（AI）',
-      '自定义分类管理',
-      '多标签支持',
-      '标签搜索过滤',
-      '批量打标签',
-      '标签统计分析'
-    ],
-    tags: ['智能标签', 'AI分类', '检索', '统计']
+    tags: ['Admin Dashboard', 'User Management', 'Content Review', 'Real-time Monitor']
   },
   {
     icon: '📊',
-    title: '数据统计',
-    description: '用户统计、文件统计、分享统计、带宽统计，实时监控，数据可视化。',
+    title: '数据统计与分析',
+    description: '多维度数据统计和可视化分析，包含用户使用量、文件统计、分享分析、带宽监控，实时掌握系统运行状态。',
     items: [
-      '用户行为统计',
-      '文件上传统计',
-      '分享访问统计',
-      '带宽使用监控',
-      '实时数据图表',
-      '导出统计报表'
+      '用户存储/上传/带宽统计',
+      '文件下载/访问统计',
+      '分享访问量分析',
+      '热门文件排行',
+      '实时流量监控',
+      '历史数据趋势分析'
     ],
-    tags: ['数据统计', '实时监控', '可视化', '报表']
+    tags: ['Analytics', 'Dashboard', 'Charts', 'Metrics']
   },
   {
-    icon: '🔌',
-    title: '开放 API',
-    description: '完整的 RESTful API，API Key 管理，Webhook 回调，方便集成到你的应用。',
+    icon: '🛡️',
+    title: '访问控制与安全',
+    description: '完善的访问控制机制，支持IP白名单/黑名单、域名限制、游客限制，内容审核，保障平台安全稳定运行。',
     items: [
-      'RESTful API 接口',
-      'API Key 管理',
-      'Webhook 回调',
-      'API 使用统计',
-      '速率限制控制',
-      'API 文档完善'
+      'IP白名单/黑名单',
+      '域名访问限制',
+      '游客上传次数/容量限制',
+      '内容安全审核',
+      '下载鉴权机制',
+      '访问日志审计'
     ],
-    tags: ['API', 'Webhook', '集成', '文档']
+    tags: ['Access Control', 'IP Whitelist', 'Guest Limit', 'Audit Log']
   },
   {
-    icon: '⚡',
-    title: '高性能',
-    description: 'Go 语言开发，高并发处理，响应迅速，8 秒快速构建，单文件部署。',
+    icon: '🔄',
+    title: '带宽与并发控制',
+    description: '精细化的带宽和并发控制，支持上传/下载速率限制，并发文件数控制，流量统计，用户配额管理。',
     items: [
-      'Go 语言高性能',
-      '高并发处理',
-      '8秒快速构建',
-      '单文件部署',
-      '内存优化',
-      '响应速度快'
+      '上传/下载带宽限制',
+      '并发上传数控制',
+      '实时流量统计',
+      '历史流量数据',
+      '用户配额管理',
+      '带宽使用报表'
     ],
-    tags: ['高性能', 'Go', '快速构建', '并发']
+    tags: ['Bandwidth Control', 'Concurrency', 'Rate Limit', 'Quota']
   },
   {
-    icon: '🐳',
-    title: '易部署',
-    description: 'Docker 一键部署，单文件运行，配置简单，支持 systemd 服务管理。',
+    icon: '💬',
+    title: '消息与通知系统',
+    description: '站内消息中心、通知推送、WebSocket实时通信，消息模板管理，及时触达用户，提升用户体验。',
     items: [
-      'Docker Compose 部署',
-      '单文件运行',
-      '配置简单',
-      'systemd 服务',
-      '自动更新',
-      '备份恢复'
+      '站内消息中心',
+      '通知实时推送',
+      'WebSocket实时通信',
+      '消息模板管理',
+      '消息已读/未读状态',
+      '消息分类和过滤'
     ],
-    tags: ['Docker', '部署', '配置', 'systemd']
+    tags: ['Messaging', 'Notification', 'WebSocket', 'Real-time']
   },
   {
-    icon: '💝',
-    title: '开源免费',
-    description: 'PolyForm NC 协议，完全开源，社区驱动，持续更新。',
+    icon: '🤖',
+    title: '自动化任务系统',
+    description: '用户自定义自动化任务，定时处理、队列管理、任务监控，提升工作效率，减少重复操作。',
     items: [
-      'PolyForm NC 协议',
-      '完全开源代码',
-      '社区驱动开发',
-      '持续功能更新',
-      '活跃的社区',
-      '详细的文档'
+      '用户自定义任务',
+      '定时任务调度',
+      '任务队列管理',
+      '任务执行监控',
+      '失败重试机制',
+      '任务日志追踪'
     ],
-    tags: ['开源', '免费', '社区', '持续更新']
+    tags: ['Automation', 'Cron', 'Queue', 'Scheduler']
   }
 ]
 

@@ -4,10 +4,10 @@
       <!-- 标题 -->
       <div class="text-center mb-16">
         <h2 class="text-4xl lg:text-5xl font-bold mb-6" :style="{background: 'linear-gradient(to right, var(--vp-c-brand-light), var(--vp-c-brand-lighter))', backgroundClip: 'text', WebkitBackgroundClip: 'text', color: 'transparent'}">
-          产品演示
+          核心功能展示
         </h2>
         <p class="text-xl max-w-3xl mx-auto" :style="{color: 'var(--cyber-text-secondary)'}">
-          体验 PixelPunk 企业级功能：AI 智能分析、向量搜索、多云存储、带宽控制和企业管理
+          融合前沿 AI 技术与极致用户体验，打造集智能分析、向量搜索、企业管理于一体的新一代图床平台
         </p>
       </div>
       
@@ -99,16 +99,29 @@
                   </div>
                   <div class="screen-title">{{ tabs[activeTab].screenTitle }}</div>
                 </div>
-                <div class="demo-screen-content">
+                <div
+                  class="demo-screen-content"
+                  :class="{ 'clickable': !imageErrors[tabs[activeTab].demoImage] }"
+                  @click="!imageErrors[tabs[activeTab].demoImage] && openImagePreview(tabs[activeTab].demoImage, tabs[activeTab].screenTitle)"
+                >
                   <!-- 优先显示真实截图，如果不存在则显示占位符 -->
-                  <img 
-                    :src="tabs[activeTab].demoImage" 
+                  <img
+                    :src="tabs[activeTab].demoImage"
                     :alt="tabs[activeTab].screenTitle"
                     class="demo-screenshot"
                     @error="handleImageError"
                     @load="handleImageLoad"
                     v-show="!imageErrors[tabs[activeTab].demoImage]"
                   />
+
+                  <!-- 预览提示层 -->
+                  <div v-show="!imageErrors[tabs[activeTab].demoImage]" class="demo-preview-hint">
+                    <svg class="preview-icon" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                      <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>点击预览大图</span>
+                  </div>
                   
                   <!-- 图片加载失败时显示占位符 -->
                   <div 
@@ -157,22 +170,64 @@
             <a href="/docs/getting-started" class="btn btn-primary">
               立即开始
             </a>
-            <a href="/demo" class="btn btn-ghost">
+            <a href="/demo" class="btn btn-secondary">
               在线演示
             </a>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- 图片预览弹窗 -->
+    <Teleport to="body">
+      <div v-if="imagePreview.show" class="image-preview-modal" @click="closeImagePreview">
+        <div class="preview-backdrop"></div>
+        <div class="preview-content" @click.stop>
+          <button class="preview-close" @click="closeImagePreview">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+          <img :src="imagePreview.src" :alt="imagePreview.alt" class="preview-image">
+          <div class="preview-title">{{ imagePreview.alt }}</div>
+        </div>
+      </div>
+    </Teleport>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { gsap } from 'gsap'
 
 const activeTab = ref(0)
 const imageErrors = ref<Record<string, boolean>>({})
+
+// 图片预览功能
+const imagePreview = ref({
+  show: false,
+  src: '',
+  alt: ''
+})
+
+const openImagePreview = (src: string, alt: string) => {
+  imagePreview.value.show = true
+  imagePreview.value.src = src
+  imagePreview.value.alt = alt
+  document.body.style.overflow = 'hidden'
+}
+
+const closeImagePreview = () => {
+  imagePreview.value.show = false
+  document.body.style.overflow = 'auto'
+}
+
+// ESC键关闭预览
+const handleKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape' && imagePreview.value.show) {
+    closeImagePreview()
+  }
+}
 
 // Tab切换处理函数
 const switchTab = (index: number) => {
@@ -383,6 +438,19 @@ const tabs = [
 ]
 
 onMounted(() => {
+  // 添加键盘事件监听
+  if (typeof window !== 'undefined') {
+    window.addEventListener('keydown', handleKeydown)
+  }
+})
+
+onUnmounted(() => {
+  // 移除键盘事件监听
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('keydown', handleKeydown)
+  }
+  // 确保body滚动恢复
+  document.body.style.overflow = 'auto'
 })
 </script>
 
@@ -582,6 +650,19 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.demo-screen-content.clickable {
+  cursor: pointer;
+}
+
+.demo-screen-content.clickable:hover {
+  transform: scale(1.02);
+}
+
+.demo-screen-content.clickable:hover .demo-screenshot {
+  transform: scale(1.05);
 }
 
 .demo-screenshot {
@@ -868,13 +949,160 @@ onMounted(() => {
   .tab-container {
     margin: 0 0.5rem;
   }
-  
+
   .tab-button {
     padding: 0.625rem 0.75rem;
   }
-  
+
   .tab-icon {
     font-size: 1.125rem;
+  }
+}
+
+/* 预览提示层 */
+.demo-preview-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  opacity: 0;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+  z-index: 5;
+}
+
+.demo-screen-content.clickable:hover .demo-preview-hint {
+  opacity: 1;
+}
+
+.preview-icon {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.5rem;
+  animation: float 2s ease-in-out infinite;
+}
+
+.demo-preview-hint span {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* 图片预览弹窗 */
+.image-preview-modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10000 !important;
+  animation: modal-fade-in 0.3s ease-out;
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.preview-backdrop {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  backdrop-filter: blur(8px);
+}
+
+.preview-content {
+  position: relative !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  background: var(--cyber-bg-secondary) !important;
+  border: 1px solid var(--cyber-border-hover) !important;
+  border-radius: 1rem !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px var(--cyber-border) !important;
+  animation: content-scale-in 0.3s ease-out;
+}
+
+@keyframes content-scale-in {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.preview-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--cyber-border-hover);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.preview-close:hover {
+  background: rgba(255, 0, 0, 0.8);
+  border-color: #ff0000;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+.preview-close svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.preview-image {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 80vh !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.preview-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  padding: 2rem 1.5rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+@media (max-width: 768px) {
+  .preview-content {
+    max-width: 95vw !important;
+    max-height: 95vh !important;
+  }
+
+  .preview-title {
+    font-size: 1rem;
+    padding: 1.5rem 1rem 0.75rem;
   }
 }
 </style>

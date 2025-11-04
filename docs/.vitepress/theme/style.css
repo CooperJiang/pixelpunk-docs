@@ -938,16 +938,6 @@ tr:hover {
   box-shadow: 0 4px 20px var(--cyber-shadow);
 }
 
-.btn-secondary {
-  border: 2px solid var(--vp-c-brand);
-  color: var(--vp-c-brand);
-  background: transparent;
-}
-
-.btn-secondary:hover {
-  background: var(--vp-c-brand);
-  color: white;
-}
 
 .btn-ghost {
   background: transparent;

@@ -17,9 +17,9 @@
             <!-- 核心理念标语 -->
             <div class="brand-slogan">
               <div class="slogan-text">
-                <span class="slogan-brand">PixelPunk图床</span>
+                <span class="slogan-brand">PixelPunk</span>
                 <span class="slogan-separator">·</span>
-                <span class="slogan-concept">不止于图床</span>
+                <span class="slogan-concept">最强大的开源图床平台</span>
               </div>
             </div>
             
@@ -29,7 +29,7 @@
               <span class="font-bold bg-gradient-to-r from-cyber-purple to-cyber-pink bg-clip-text text-transparent">向量搜索</span>、
               <span class="font-bold bg-gradient-to-r from-cyber-pink to-cyber-yellow bg-clip-text text-transparent">多云存储</span>、
               <span class="font-bold bg-gradient-to-r from-cyber-yellow to-cyber-blue bg-clip-text text-transparent">带宽控制</span>、
-              <span class="font-bold bg-gradient-to-r from-cyber-blue to-cyber-green bg-clip-text text-transparent">企业管理</span>
+              <span class="font-bold bg-gradient-to-r from-cyber-blue to-cyber-green bg-clip-text text-transparent">企业管理</span>等
               于一体的全栈图片管理解决方案
             </p>
           </div>
@@ -102,7 +102,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
               </svg>
             </a>
-            <a href="https://pixelpunk.cc/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary group">
+            <a href="https://v1.pixelpunk.cc/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary group">
               <span class="btn-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polygon points="23 7 16 12 23 17 23 7"/>
@@ -1135,9 +1135,9 @@ onUnmounted(() => {
   letter-spacing: 0.1em;
 }
 
-/* 移除scroll bounce动画 */
+/* 滚动箭头动画 */
 .scroll-arrow {
-  /* 移除动画 */
+  animation: scroll-bounce 2s ease-in-out infinite;
 }
 
 /* 移除所有复杂动画 */
@@ -1178,7 +1178,14 @@ onUnmounted(() => {
 @keyframes border-rotate { /* 禁用 */ }
 @keyframes cursor-blink { /* 禁用 */ }
 @keyframes dash-move { /* 禁用 */ }
-@keyframes scroll-bounce { /* 禁用 */ }
+@keyframes scroll-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
 
 /* 主题特定样式 */
 [data-theme="light"] .hero-section {

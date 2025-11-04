@@ -21,6 +21,9 @@ import Contributors from './components/Contributors.vue'
 import ContributorModal from './components/ContributorModal.vue'
 import CustomFooter from './components/CustomFooter.vue'
 import FeedbackPage from './components/FeedbackPage.vue'
+import ProductScreenshots from './components/ProductScreenshots.vue'
+import QuickDeploy from './components/QuickDeploy.vue'
+import Updates from './components/Updates.vue'
 
 export default {
   extends: DefaultTheme,
@@ -44,7 +47,10 @@ export default {
     app.component('ContributorModal', ContributorModal)
     app.component('CustomFooter', CustomFooter)
     app.component('FeedbackPage', FeedbackPage)
-    
+    app.component('ProductScreenshots', ProductScreenshots)
+    app.component('QuickDeploy', QuickDeploy)
+    app.component('Updates', Updates)
+
     // 主题切换处理
     if (typeof window !== 'undefined') {
       const updateDataTheme = () => {
