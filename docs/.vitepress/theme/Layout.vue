@@ -352,11 +352,11 @@ if (typeof window !== 'undefined') {
   .scan-lines {
     display: none;
   }
-  
+
   .matrix-rain {
     opacity: 0.05;
   }
-  
+
   .matrix-column {
     font-size: 12px;
   }

@@ -24,6 +24,7 @@ import FeedbackPage from './components/FeedbackPage.vue'
 import ProductScreenshots from './components/ProductScreenshots.vue'
 import QuickDeploy from './components/QuickDeploy.vue'
 import Updates from './components/Updates.vue'
+import CodeTabs from './components/CodeTabs.vue'
 
 export default {
   extends: DefaultTheme,
@@ -50,6 +51,7 @@ export default {
     app.component('ProductScreenshots', ProductScreenshots)
     app.component('QuickDeploy', QuickDeploy)
     app.component('Updates', Updates)
+    app.component('CodeTabs', CodeTabs)
 
     // 主题切换处理
     if (typeof window !== 'undefined') {

@@ -72,17 +72,19 @@
         <h3 class="text-2xl font-bold text-center section-title" :style="{color: 'var(--vp-c-brand)'}">
           技术栈
         </h3>
-        <div class="tech-grid grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-4">
+        <div class="tech-grid-container">
+          <div class="tech-grid grid grid-cols-3 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-10 gap-4">
           <div
             v-for="(tech, index) in techStack"
             :key="index"
             class="tech-item"
           >
             <div class="tech-icon">
-              <span class="text-4xl">{{ tech.icon }}</span>
+              <img :src="tech.icon" :alt="tech.name" class="tech-icon-img" />
             </div>
             <div class="tech-name" :style="{color: 'var(--cyber-text-secondary)'}">{{ tech.name }}</div>
           </div>
+        </div>
         </div>
       </div>
       
@@ -204,41 +206,49 @@ const modulesAutoScrollTimer = ref<NodeJS.Timeout>()
 const isModulesPaused = ref(false)
 
 const stats = [
-  { icon: '📁', label: '后端接口', target: 318, suffix: '+' },
-  { icon: '🎨', label: '前端路由', target: 41, suffix: '+' },
-  { icon: '🗃️', label: '数据表', target: 42, suffix: '+' },
-  { icon: '🤖', label: 'AI 能力', target: 10, suffix: '+' },
-  { icon: '🔍', label: '向量维度', target: 1536, suffix: 'D' },
-  { icon: '☁️', label: '存储渠道', target: 12, suffix: '+' },
-  { icon: '📄', label: '支持格式', target: 20, suffix: '+' },
-  { icon: '🛡️', label: '安全特性', target: 20, suffix: '+' },
-  { icon: '🔧', label: '管理功能', target: 60, suffix: '+' },
-  { icon: '⚡', label: '构建速度', target: 8, suffix: '秒' }
+  { icon: '📁', label: '后端接口', target: 328, suffix: '+' },
+  { icon: '🎨', label: '前端路由', target: 37, suffix: '+' },
+  { icon: '🗃️', label: '数据表', target: 43, suffix: '+' },
+  { icon: '💻', label: '代码总量', target: 27, suffix: '万行' },
+  { icon: '🤖', label: 'AI 功能', target: 5, suffix: '个' },
+  { icon: '☁️', label: '存储渠道', target: 8, suffix: '种' },
+  { icon: '📄', label: '文件格式', target: 55, suffix: '+' },
+  { icon: '🛡️', label: '安全中间件', target: 13, suffix: '个' },
+  { icon: '🔧', label: '管理模块', target: 14, suffix: '个' },
+  { icon: '🔌', label: 'OAuth登录', target: 3, suffix: '种' }
 ]
 
 const techStack = [
-  { name: 'Go', icon: '🐹' },
-  { name: 'Vue 3', icon: '💚' },
-  { name: 'TypeScript', icon: '📘' },
-  { name: 'Gin', icon: '🍸' },
-  { name: 'GORM', icon: '🔗' },
-  { name: 'MySQL', icon: '🐬' },
-  { name: 'SQLite', icon: '📦' },
-  { name: 'Redis', icon: '🔴' },
-  { name: 'Qdrant', icon: '🔍' },
-  { name: 'Vite', icon: '⚡' },
-  { name: 'TailwindCSS', icon: '🌊' },
-  { name: 'Pinia', icon: '🍍' },
-  { name: 'OpenAI', icon: '🤖' },
-  { name: 'Claude', icon: '🧠' },
-  { name: 'AWS S3', icon: '☁️' },
-  { name: 'Aliyun OSS', icon: '☁️' },
-  { name: 'Cloudflare R2', icon: '🌩️' },
-  { name: 'Docker', icon: '🐳' },
-  { name: 'WebSocket', icon: '🔌' },
-  { name: 'JWT', icon: '🔐' },
-  { name: 'GSAP', icon: '✨' },
-  { name: 'ECharts', icon: '📊' }
+  { name: 'Go', icon: '/images/tech-icons/go.svg' },
+  { name: 'Vue 3', icon: '/images/tech-icons/vue.svg' },
+  { name: 'TypeScript', icon: '/images/tech-icons/typescript.svg' },
+  { name: 'Gin', icon: '/images/tech-icons/gin.svg' },
+  { name: 'GORM', icon: '/images/tech-icons/gorm.svg' },
+  { name: 'MySQL', icon: '/images/tech-icons/mysql.svg' },
+  { name: 'SQLite', icon: '/images/tech-icons/sqlite.svg' },
+  { name: 'Redis', icon: '/images/tech-icons/redis.svg' },
+  { name: 'Qdrant', icon: '/images/tech-icons/qdrant.svg' },
+  { name: 'Vite', icon: '/images/tech-icons/vite.svg' },
+  { name: 'TailwindCSS', icon: '/images/tech-icons/tailwindcss.svg' },
+  { name: 'Pinia', icon: '/images/tech-icons/pinia.svg' },
+  { name: 'Vue Router', icon: '/images/tech-icons/vue-router.svg' },
+  { name: 'Axios', icon: '/images/tech-icons/axios.svg' },
+  { name: 'OpenAI', icon: '/images/tech-icons/openai.svg' },
+  { name: 'Gemini', icon: '/images/tech-icons/gemini.svg' },
+  { name: 'Vector Search', icon: '/images/tech-icons/vector-search.svg' },
+  { name: 'AWS S3', icon: '/images/tech-icons/aws-s3.svg' },
+  { name: 'Aliyun OSS', icon: '/images/tech-icons/aliyun.svg' },
+  { name: 'Tencent COS', icon: '/images/tech-icons/tencent.svg' },
+  { name: 'Cloudflare R2', icon: '/images/tech-icons/cloudflare.svg' },
+  { name: 'WebP', icon: '/images/tech-icons/webp.svg' },
+  { name: 'Image Processing', icon: '/images/tech-icons/image-processing.svg' },
+  { name: 'WebSocket', icon: '/images/tech-icons/websocket.svg' },
+  { name: 'JWT', icon: '/images/tech-icons/jwt.svg' },
+  { name: 'OAuth', icon: '/images/tech-icons/oauth.svg' },
+  { name: 'GSAP', icon: '/images/tech-icons/gsap.svg' },
+  { name: 'ECharts', icon: '/images/tech-icons/echarts.svg' },
+  { name: 'Docker', icon: '/images/tech-icons/docker.svg' },
+  { name: 'Markdown', icon: '/images/tech-icons/markdown.svg' }
 ]
 
 const modules = [
@@ -862,29 +872,163 @@ onUnmounted(() => {
   }
 }
 
+/* 技术栈容器 */
+.tech-grid-container {
+  position: relative;
+  padding: 2rem;
+  background:
+    linear-gradient(90deg, var(--cyber-border) 1px, transparent 1px),
+    linear-gradient(var(--cyber-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.tech-grid-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 0%,
+    var(--cyber-bg-primary) 100%
+  );
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.tech-grid {
+  position: relative;
+  z-index: 1;
+}
+
 .tech-item {
-  background: var(--cyber-bg-primary);
-  border: 1px solid var(--cyber-border);
-  border-radius: 0.5rem;
-  padding: 1rem;
+  background: linear-gradient(145deg,
+    rgba(var(--cyber-bg-primary-rgb, 26, 29, 46), 0.6) 0%,
+    rgba(var(--cyber-bg-secondary-rgb, 36, 39, 65), 0.4) 100%);
+  border: 1.5px solid var(--cyber-border);
+  border-radius: 0.75rem;
+  padding: 1.25rem 0.875rem;
   text-align: center;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(0, 255, 136, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.tech-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--vp-c-brand) 50%,
+    transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tech-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 255, 136, 0.08) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 
 .tech-item:hover {
-  border-color: var(--cyber-border-hover);
+  border-color: var(--vp-c-brand);
+  transform: translateY(-6px) scale(1.06);
+  box-shadow:
+    0 12px 30px rgba(0, 255, 136, 0.25),
+    0 0 40px rgba(0, 255, 136, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.tech-item:hover::before {
+  opacity: 1;
+}
+
+.tech-item:hover::after {
+  opacity: 1;
 }
 
 .tech-icon {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.875rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 3.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.tech-icon::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(circle, var(--vp-c-brand) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.tech-item:hover .tech-icon::before {
+  opacity: 0.15;
+  animation: icon-glow 2s ease-in-out infinite;
+}
+
+@keyframes icon-glow {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(1.1);
+  }
+}
+
+.tech-icon-img {
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: grayscale(0.4) brightness(0.95);
+}
+
+.tech-item:hover .tech-icon-img {
+  filter: grayscale(0) brightness(1.1) drop-shadow(0 0 12px currentColor);
+  transform: scale(1.2) rotate(8deg);
 }
 
 .tech-name {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.825rem;
+  font-weight: 600;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+  letter-spacing: 0.01em;
+  transition: all 0.3s ease;
+}
+
+.tech-item:hover .tech-name {
+  color: var(--vp-c-brand) !important;
+  transform: translateY(-2px);
 }
 
 /* 轮播容器样式 */
@@ -1187,13 +1331,53 @@ onUnmounted(() => {
 }
 
 [data-theme="light"] .tech-item {
-  background: var(--cyber-bg-secondary);
-  border: 1px solid var(--cyber-border-hover);
-  box-shadow: 0 2px 10px var(--cyber-shadow);
+  background: linear-gradient(145deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(245, 247, 250, 0.9) 100%);
+  border: 1.5px solid rgba(5, 217, 232, 0.2);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.08),
+    0 0 20px rgba(5, 217, 232, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 [data-theme="light"] .tech-item:hover {
-  box-shadow: 0 4px 15px var(--cyber-shadow);
+  box-shadow:
+    0 12px 30px rgba(5, 217, 232, 0.2),
+    0 0 40px rgba(5, 217, 232, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-color: var(--vp-c-brand);
+}
+
+[data-theme="light"] .tech-icon-img {
+  filter: grayscale(0.3) brightness(0.92);
+}
+
+[data-theme="light"] .tech-item:hover .tech-icon-img {
+  filter: grayscale(0) brightness(1.05) drop-shadow(0 0 10px rgba(5, 217, 232, 0.4));
+}
+
+[data-theme="light"] .tech-item::after {
+  background: radial-gradient(
+    circle at center,
+    rgba(5, 217, 232, 0.06) 0%,
+    transparent 70%
+  );
+}
+
+[data-theme="light"] .tech-grid-container {
+  background:
+    linear-gradient(90deg, rgba(5, 217, 232, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(5, 217, 232, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+[data-theme="light"] .tech-grid-container::before {
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 0%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
 }
 
 [data-theme="light"] .module-carousel-card {
@@ -1248,16 +1432,38 @@ onUnmounted(() => {
     @apply text-2xl;
   }
 
+  .tech-grid-container {
+    padding: 1.25rem !important;
+    background-size: 30px 30px !important;
+  }
+
   .tech-grid {
-    @apply grid-cols-3 gap-4;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.875rem !important;
   }
 
   .tech-item {
-    @apply p-3;
+    padding: 1rem 0.625rem !important;
+    border-radius: 0.625rem !important;
   }
 
-  .tech-icon img {
-    @apply w-8 h-8;
+  .tech-icon {
+    height: 2.75rem !important;
+    margin-bottom: 0.625rem !important;
+  }
+
+  .tech-icon-img {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+  }
+
+  .tech-item:hover .tech-icon-img {
+    transform: scale(1.15) rotate(5deg) !important;
+  }
+
+  .tech-name {
+    font-size: 0.725rem !important;
+    line-height: 1.25 !important;
   }
 
   .modules-carousel-wrapper {

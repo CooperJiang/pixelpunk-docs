@@ -23,10 +23,7 @@ titleTemplate: 赛博朋克风格的新一代图片存储管理系统
 <TestimonialCarousel />
 
 <!-- 最新动态 - 展示活跃度 -->
-<Updates />
-
-<!-- 快速部署 - 引导立即使用 -->
-<QuickDeploy />
+<!-- <Updates /> -->
 
 <!-- 贡献列表 - 展示社区活力 -->
 <Contributors />

@@ -130,15 +130,15 @@
           <div class="hero-stats grid grid-cols-3 gap-6 py-4 border-t border-cyber-primary/20">
             <div class="stat-item text-center">
               <div class="text-3xl font-bold glow-text" style="color: var(--vp-c-brand)">{{ animatedStats.images }}</div>
-              <div class="text-sm mt-1" style="color: var(--cyber-text-tertiary)">图片处理</div>
+              <div class="text-sm mt-1" style="color: var(--cyber-text-tertiary)">技术栈</div>
             </div>
             <div class="stat-item text-center">
               <div class="text-3xl font-bold glow-text" style="color: var(--vp-c-brand-light)">{{ animatedStats.users }}</div>
-              <div class="text-sm mt-1" style="color: var(--cyber-text-tertiary)">活跃用户</div>
+              <div class="text-sm mt-1" style="color: var(--cyber-text-tertiary)">存储渠道</div>
             </div>
             <div class="stat-item text-center">
               <div class="text-3xl font-bold glow-text" style="color: var(--vp-c-brand-lighter)">{{ animatedStats.storage }}</div>
-              <div class="text-sm mt-1" style="color: var(--cyber-text-tertiary)">存储空间</div>
+              <div class="text-sm mt-1" style="color: var(--cyber-text-tertiary)">行代码</div>
             </div>
           </div>
         </div>
@@ -244,18 +244,18 @@ const rotationOffset = ref(0)
 
 // 目标数据
 const targetStats = {
-  images: '1M+',
-  users: '50K+',
-  storage: '100TB+'
+  images: '30+',
+  users: '10+',
+  storage: '20w+'
 }
 
 // 数字动画 - 完全禁用
 const animateStats = () => {
   // 直接设置最终值，不使用动画
   animatedStats.value = {
-    images: '1M+',
-    users: '50K+',
-    storage: '100TB+'
+    images: '30+',
+    users: '10+',
+    storage: '20w+'
   }
 }
 
@@ -294,9 +294,9 @@ const initAnimations = () => {
   
   // 立即显示最终数据
   animatedStats.value = {
-    images: '1M+',
-    users: '50K+',
-    storage: '100TB+'
+    images: '30+',
+    users: '10+',
+    storage: '20w+'
   }
 }
 

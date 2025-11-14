@@ -36,16 +36,41 @@
 
     <!-- 模块导航 -->
     <div class="module-navigation container mx-auto px-4 py-8">
-      <div class="nav-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div class="nav-carousel-wrapper">
+        <!-- 左箭头 -->
         <button
-          v-for="module in featureModules"
-          :key="module.id"
-          @click="selectModule(module.id)"
-          :class="['nav-item', { active: selectedModule?.id === module.id }]"
-          :style="{ '--module-color': module.color, '--module-bg': module.bgColor }"
+          class="nav-arrow nav-arrow-left"
+          @click="scrollNavLeft"
+          :class="{ 'disabled': navScrollPosition <= 0 }"
         >
-          <div class="nav-icon">{{ module.icon }}</div>
-          <div class="nav-label">{{ module.name }}</div>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+
+        <!-- 导航容器 -->
+        <div class="nav-scroll" ref="navScrollRef" @scroll="updateNavScrollPosition">
+          <button
+            v-for="module in featureModules"
+            :key="module.id"
+            @click="selectModule(module.id)"
+            :class="['nav-item', { active: selectedModule?.id === module.id }]"
+            :style="{ '--module-color': module.color, '--module-bg': module.bgColor }"
+          >
+            <div class="nav-icon">{{ module.icon }}</div>
+            <div class="nav-label">{{ module.name }}</div>
+          </button>
+        </div>
+
+        <!-- 右箭头 -->
+        <button
+          class="nav-arrow nav-arrow-right"
+          @click="scrollNavRight"
+          :class="{ 'disabled': navScrollPosition >= navMaxScroll }"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
         </button>
       </div>
     </div>
@@ -89,69 +114,105 @@
             <span class="title-icon">✨</span>
             核心功能特性
           </h3>
-          
-          <div class="features-grid grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div 
-              v-for="feature in selectedModule.features" 
-              :key="feature.id"
-              class="feature-item"
+
+          <!-- 横向滚动卡片容器 -->
+          <div class="features-carousel">
+            <!-- 卡片轨道 -->
+            <div
+              ref="featuresTrackRef"
+              class="features-track"
             >
-              <div class="feature-icon">{{ feature.icon }}</div>
-              <div class="feature-content">
-                <h4 class="feature-title">{{ feature.title }}</h4>
-                <p class="feature-description">{{ feature.description }}</p>
-                <div v-if="feature.category" class="feature-category" :style="getCategoryStyle(feature.category)">
-                  <span class="category-icon">{{ featureCategories[feature.category]?.icon }}</span>
-                  <span class="category-label">{{ featureCategories[feature.category]?.label }}</span>
+              <div class="features-wrapper">
+                <div
+                  v-for="feature in selectedModule.features"
+                  :key="feature.id"
+                  class="feature-card"
+                >
+                  <div class="feature-card-header">
+                    <div class="feature-card-icon">{{ feature.icon }}</div>
+                    <h4 class="feature-card-title">{{ feature.title }}</h4>
+                  </div>
+                  <p class="feature-card-description">{{ feature.description }}</p>
+                  <div v-if="feature.category" class="feature-card-category" :style="getCategoryStyle(feature.category)">
+                    <span class="category-icon">{{ featureCategories[feature.category]?.icon }}</span>
+                    <span class="category-label">{{ featureCategories[feature.category]?.label }}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 更多截图 -->
+        <!-- 功能截图轮播 -->
         <div v-if="selectedModule.screenshots && selectedModule.screenshots.length > 0" class="screenshots-section">
           <h3 class="section-title">
             <span class="title-icon">📷</span>
             功能截图展示
+            <span class="screenshot-count">{{ Math.min(currentScreenshotIndex + 2, selectedModule.screenshots.length) }} / {{ selectedModule.screenshots.length }}</span>
           </h3>
-          
-          <div class="screenshots-grid grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div 
-              v-for="(screenshot, index) in selectedModule.screenshots" 
-              :key="index"
-              class="screenshot-item"
-              @click="openImagePreview(screenshot, `${selectedModule.name} - 截图${index + 1}`)"
+
+          <div class="screenshots-carousel">
+            <!-- 左箭头 -->
+            <button
+              v-if="selectedModule.screenshots.length > 2"
+              class="screenshot-nav screenshot-nav-left"
+              @click="prevScreenshot"
+              :class="{ 'disabled': currentScreenshotIndex === 0 }"
+              :disabled="currentScreenshotIndex === 0"
             >
-              <img :src="screenshot" :alt="`${selectedModule.name} - 截图${index + 1}`" class="screenshot-image">
-              <div class="screenshot-overlay"></div>
-              <div class="screenshot-preview-hint">
-                <svg class="preview-icon" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                  <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
-                </svg>
-                <span>查看大图</span>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+
+            <!-- 轮播容器 -->
+            <div class="screenshots-container">
+              <div
+                class="screenshots-track"
+                :style="{ transform: `translateX(-${currentScreenshotIndex * (100 / 2)}%)` }"
+              >
+                <div
+                  v-for="(screenshot, index) in selectedModule.screenshots"
+                  :key="index"
+                  class="screenshot-slide"
+                  @click="openImagePreview(screenshot, `${selectedModule.name} - 截图${index + 1}`)"
+                >
+                  <img :src="screenshot" :alt="`${selectedModule.name} - 截图${index + 1}`" class="screenshot-image">
+                  <div class="screenshot-overlay"></div>
+                  <div class="screenshot-preview-hint">
+                    <svg class="preview-icon" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                      <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>点击预览大图</span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- 配置说明 -->
-        <div v-if="selectedModule.configGuide" class="config-section">
-          <h3 class="section-title">
-            <span class="title-icon">⚙️</span>
-            {{ selectedModule.configGuide.title }}
-          </h3>
-          
-          <div class="config-steps">
-            <div 
-              v-for="(step, index) in selectedModule.configGuide.steps" 
-              :key="index"
-              class="config-step"
+            <!-- 右箭头 -->
+            <button
+              v-if="selectedModule.screenshots.length > 2"
+              class="screenshot-nav screenshot-nav-right"
+              @click="nextScreenshot"
+              :class="{ 'disabled': currentScreenshotIndex >= selectedModule.screenshots.length - 2 }"
+              :disabled="currentScreenshotIndex >= selectedModule.screenshots.length - 2"
             >
-              <div class="step-number">{{ index + 1 }}</div>
-              <div class="step-content">{{ step }}</div>
-            </div>
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+
+          <!-- 轮播指示器 -->
+          <div v-if="selectedModule.screenshots.length > 2" class="screenshot-indicators">
+            <button
+              v-for="(_, index) in Math.max(1, selectedModule.screenshots.length - 1)"
+              :key="index"
+              class="screenshot-indicator"
+              :class="{ 'active': index === currentScreenshotIndex }"
+              @click="goToScreenshot(index)"
+            ></button>
           </div>
         </div>
 
@@ -209,12 +270,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { gsap } from 'gsap'
 import { featureModules, featureCategories, type FeatureModule } from '../../config/features'
 
 const selectedModule = ref<FeatureModule>(featureModules[0])
 const expandedFaqs = ref<number[]>([])
+
+// 导航滚动状态
+const navScrollRef = ref<HTMLElement | null>(null)
+const navScrollPosition = ref(0)
+const navMaxScroll = ref(0)
+
+// 截图轮播状态
+const currentScreenshotIndex = ref(0)
 
 // 图片预览功能
 const imagePreview = ref({
@@ -250,19 +319,59 @@ const selectModule = (moduleId: string) => {
   if (module) {
     selectedModule.value = module
     expandedFaqs.value = []
-    
-    // 滚动到详情区域，考虑导航栏高度偏移
-    const detailsElement = document.querySelector('.module-details')
-    if (detailsElement) {
-      const elementPosition = detailsElement.offsetTop
-      const offsetPosition = elementPosition - 22 // 减去导航栏高度70px
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
-    }
+    currentScreenshotIndex.value = 0 // 重置截图索引
+
+    // 滚动到详情区域，考虑导航栏高度偏移（已禁用）
+    // const detailsElement = document.querySelector('.module-details')
+    // if (detailsElement) {
+    //   const elementPosition = detailsElement.offsetTop
+    //   const offsetPosition = elementPosition - 22 // 减去导航栏高度70px
+
+    //   window.scrollTo({
+    //     top: offsetPosition,
+    //     behavior: 'smooth'
+    //   })
+    // }
   }
+}
+
+// 导航滚动控制
+const updateNavScrollPosition = () => {
+  if (navScrollRef.value) {
+    navScrollPosition.value = navScrollRef.value.scrollLeft
+    navMaxScroll.value = navScrollRef.value.scrollWidth - navScrollRef.value.clientWidth
+  }
+}
+
+const scrollNavLeft = () => {
+  if (navScrollRef.value) {
+    const scrollAmount = navScrollRef.value.clientWidth * 0.8
+    navScrollRef.value.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+  }
+}
+
+const scrollNavRight = () => {
+  if (navScrollRef.value) {
+    const scrollAmount = navScrollRef.value.clientWidth * 0.8
+    navScrollRef.value.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+  }
+}
+
+// 截图轮播控制（一屏显示2张，每次滚动1张）
+const prevScreenshot = () => {
+  if (currentScreenshotIndex.value > 0) {
+    currentScreenshotIndex.value--
+  }
+}
+
+const nextScreenshot = () => {
+  if (selectedModule.value.screenshots && currentScreenshotIndex.value < selectedModule.value.screenshots.length - 2) {
+    currentScreenshotIndex.value++
+  }
+}
+
+const goToScreenshot = (index: number) => {
+  currentScreenshotIndex.value = index
 }
 
 // 切换FAQ展开状态
@@ -297,6 +406,12 @@ const getCategoryStyle = (category: string) => {
 }
 
 onMounted(async () => {
+  // 初始化导航滚动状态
+  if (navScrollRef.value) {
+    updateNavScrollPosition()
+    window.addEventListener('resize', updateNavScrollPosition)
+  }
+
   // 动态导入 ScrollTrigger 避免构建问题
   if (typeof window !== 'undefined') {
     try {
@@ -320,9 +435,9 @@ onMounted(async () => {
       })
       
       // 功能卡片动画
-      gsap.set('.feature-item', { opacity: 0, y: 30 })
-      
-      ScrollTrigger.batch('.feature-item', {
+      gsap.set('.feature-card', { opacity: 0, y: 30 })
+
+      ScrollTrigger.batch('.feature-card', {
         onEnter: (elements) => {
           gsap.to(elements, {
             opacity: 1,
@@ -444,25 +559,76 @@ onMounted(async () => {
   backdrop-filter: blur(10px);
 }
 
-.nav-grid {
+.nav-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.nav-arrow {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cyber-bg-secondary);
+  border: 1px solid var(--cyber-border);
+  border-radius: 50%;
+  color: var(--vp-c-brand);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.nav-arrow:hover:not(.disabled) {
+  background: var(--cyber-bg-primary);
+  border-color: var(--vp-c-brand);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+  transform: scale(1.1);
+}
+
+.nav-arrow.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.nav-scroll {
+  flex: 1;
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 0.5rem 1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.nav-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
+  gap: 0.35rem;
+  padding: 0.6rem 0.9rem;
   background: var(--cyber-bg-secondary);
   border: 1px solid var(--cyber-border);
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   color: var(--cyber-text-secondary);
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .nav-item::before {
@@ -488,14 +654,14 @@ onMounted(async () => {
 }
 
 .nav-icon {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   position: relative;
   z-index: 1;
 }
 
 .nav-label {
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   position: relative;
   z-index: 1;
   text-align: center;
@@ -514,7 +680,7 @@ onMounted(async () => {
 .detail-card {
   background: var(--cyber-bg-secondary);
   border: 1px solid var(--cyber-border);
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   overflow: hidden;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px var(--cyber-shadow);
@@ -523,9 +689,9 @@ onMounted(async () => {
 /* 模块头部 */
 .module-header {
   display: flex;
-  gap: 2rem;
+  gap: 2.5rem;
   align-items: flex-start;
-  padding: 2rem;
+  padding: 2.5rem;
   border-bottom: 1px solid var(--cyber-border);
 }
 
@@ -537,7 +703,7 @@ onMounted(async () => {
 }
 
 .module-icon-large {
-  font-size: 3rem;
+  font-size: 2.5rem;
   filter: drop-shadow(0 0 15px var(--module-color));
   animation: float 3s ease-in-out infinite;
 }
@@ -558,7 +724,7 @@ onMounted(async () => {
   font-size: 1.75rem;
   font-weight: bold;
   color: var(--cyber-text-primary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   flex-wrap: wrap;
 }
 
@@ -566,14 +732,14 @@ onMounted(async () => {
   padding: 0.25rem 0.5rem;
   background: var(--vp-c-brand);
   color: var(--cyber-bg-primary);
-  border-radius: 0.375rem;
+  border-radius: 0.25rem;
   font-size: 0.75rem;
   font-weight: 600;
 }
 
 .status-badge {
   padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
+  border-radius: 0.25rem;
   font-size: 0.75rem;
   font-weight: 600;
 }
@@ -598,7 +764,7 @@ onMounted(async () => {
 
 .module-description {
   color: var(--cyber-text-secondary);
-  line-height: 1.6;
+  line-height: 1.8;
   font-size: 1rem;
   margin: 0;
 }
@@ -608,17 +774,18 @@ onMounted(async () => {
   position: relative;
   width: 320px;
   height: 180px;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid var(--cyber-border);
+  border: 2px solid var(--cyber-border);
   flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
 }
 
 .module-image:hover {
-  border-color: var(--cyber-border-hover);
-  box-shadow: 0 8px 25px var(--cyber-shadow), 0 0 20px var(--cyber-border);
+  border-color: var(--vp-c-brand);
+  box-shadow: 0 8px 25px var(--cyber-shadow), 0 0 30px var(--vp-c-brand);
   transform: translateY(-2px);
 }
 
@@ -678,9 +845,8 @@ onMounted(async () => {
 /* 内容区域 */
 .features-section,
 .screenshots-section,
-.config-section,
 .faqs-section {
-  padding: 2rem;
+  padding: 2.5rem;
   border-bottom: 1px solid var(--cyber-border);
 }
 
@@ -691,122 +857,286 @@ onMounted(async () => {
 .section-title {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--cyber-text-primary);
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--cyber-border);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--vp-c-brand), transparent);
 }
 
 .title-icon {
   font-size: 1.5rem;
+  filter: drop-shadow(0 0 8px var(--vp-c-brand));
 }
 
-/* 功能特性网格 */
-.features-grid {
-  gap: 1.5rem;
+/* 功能特性横向滚动 */
+.features-carousel {
+  position: relative;
+  margin: 0 -2rem;
+  padding: 0 2rem;
 }
 
-.feature-item {
+.features-track {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--vp-c-brand) var(--cyber-border);
+  padding: 0.5rem 0;
+  cursor: grab;
+}
+
+.features-track:active {
+  cursor: grabbing;
+}
+
+.features-track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.features-track::-webkit-scrollbar-track {
+  background: var(--cyber-border);
+  border-radius: 3px;
+}
+
+.features-track::-webkit-scrollbar-thumb {
+  background: var(--vp-c-brand);
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.features-track::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-brand-light);
+}
+
+.features-wrapper {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+  min-width: max-content;
+}
+
+.feature-card {
+  flex: 0 0 320px;
+  min-height: 300px;
+  height: 100%;
   padding: 1.5rem;
   background: var(--cyber-bg-primary);
   border: 1px solid var(--cyber-border);
-  border-radius: 0.75rem;
-  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
-.feature-item:hover {
-  border-color: var(--cyber-border-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px var(--cyber-shadow);
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--vp-c-brand), var(--vp-c-brand-light));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.feature-icon {
-  font-size: 1.5rem;
+.feature-card:hover {
+  border-color: var(--vp-c-brand);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 255, 136, 0.2), 0 0 30px rgba(0, 255, 136, 0.1);
+}
+
+.feature-card:hover::before {
+  opacity: 1;
+}
+
+.feature-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card-icon {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 0 10px var(--vp-c-brand));
   flex-shrink: 0;
-  margin-top: 0.25rem;
 }
 
-.feature-content {
-  flex: 1;
-}
-
-.feature-title {
+.feature-card-title {
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--cyber-text-primary);
-  margin-bottom: 0.5rem;
-  margin-top: 0;
+  margin: 0;
+  background: linear-gradient(135deg, var(--vp-c-brand), var(--vp-c-brand-light));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: right;
+  line-height: 1.3;
 }
 
-.feature-description {
+.feature-card-description {
   color: var(--cyber-text-secondary);
-  line-height: 1.5;
-  margin-bottom: 0.75rem;
-  margin-top: 0;
+  line-height: 1.7;
+  margin: 0 0 1rem 0;
+  flex: 1;
+  font-size: 0.9rem;
 }
 
-.feature-category {
+.feature-card-category {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.5rem;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
   background: var(--category-bg);
   border: 1px solid var(--category-color);
   border-radius: 0.375rem;
   color: var(--category-color);
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
+  align-self: flex-start;
+  margin-top: auto;
+  box-shadow: 0 0 15px var(--category-bg);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-card-category {
+  box-shadow: 0 0 20px var(--category-color);
 }
 
 .category-icon {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
 }
 
-/* 截图展示 */
-.screenshots-grid {
-  gap: 1.5rem;
+/* 截图轮播展示 */
+.screenshot-count {
+  margin-left: auto;
+  font-size: 0.875rem;
+  color: var(--vp-c-brand);
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid var(--vp-c-brand);
+  border-radius: 0.375rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
 }
 
-.screenshot-item {
+.screenshots-carousel {
   position: relative;
-  aspect-ratio: 16/9;
-  border-radius: 0.75rem;
-  overflow: hidden;
+  padding: 0 60px;
+  margin: 0 -2rem;
+}
+
+.screenshot-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 212, 255, 0.15));
+  border: 1px solid var(--vp-c-brand);
+  border-radius: 50%;
+  color: var(--vp-c-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 1px solid var(--cyber-border);
+  backdrop-filter: blur(10px);
 }
 
-.screenshot-item:hover {
-  border-color: var(--cyber-border-hover);
-  box-shadow: 0 8px 25px var(--cyber-shadow);
-  transform: translateY(-2px);
+.screenshot-nav:hover:not(.disabled) {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.3), rgba(0, 212, 255, 0.3));
+  box-shadow: 0 0 25px var(--vp-c-brand);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.screenshot-nav.disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.screenshot-nav-left {
+  left: 0;
+}
+
+.screenshot-nav-right {
+  right: 0;
+}
+
+.screenshots-container {
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.screenshots-track {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.screenshot-slide {
+  flex: 0 0 calc(50% - 0.75rem);
+  position: relative;
+  aspect-ratio: 16/9;
+  cursor: pointer;
+  overflow: hidden;
+  border: 2px solid var(--cyber-border);
+  border-radius: 0.5rem;
+  background: var(--cyber-bg-primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 255, 136, 0.05);
+  transition: all 0.4s ease;
+}
+
+.screenshot-slide:hover {
+  border-color: var(--vp-c-brand);
+  box-shadow: 0 8px 35px rgba(0, 255, 136, 0.3), 0 0 40px rgba(0, 255, 136, 0.2);
+  transform: scale(1.02);
 }
 
 .screenshot-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease;
 }
 
-.screenshot-item:hover .screenshot-image {
+.screenshot-slide:hover .screenshot-image {
   transform: scale(1.05);
 }
 
 .screenshot-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(45deg, var(--cyber-border) 0%, transparent 50%);
-  opacity: 0.1;
+  background: linear-gradient(45deg, var(--vp-c-brand) 0%, transparent 50%);
+  opacity: 0.05;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
-.screenshot-item:hover .screenshot-overlay {
-  opacity: 0.2;
+.screenshot-slide:hover .screenshot-overlay {
+  opacity: 0.15;
 }
 
 .screenshot-preview-hint {
@@ -816,76 +1146,74 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.7);
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.75);
   color: white;
   opacity: 0;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
+  transition: all 0.4s ease;
+  backdrop-filter: blur(8px);
 }
 
-.screenshot-item:hover .screenshot-preview-hint {
+.screenshot-slide:hover .screenshot-preview-hint {
   opacity: 1;
 }
 
-/* 配置步骤 */
-.config-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.preview-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
 }
 
-.config-step {
+.screenshot-indicators {
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background: var(--cyber-bg-primary);
-  border: 1px solid var(--cyber-border);
-  border-radius: 0.5rem;
-  transition: all 0.3s ease;
-}
-
-.config-step:hover {
-  border-color: var(--cyber-border-hover);
-  background: var(--cyber-border);
-}
-
-.step-number {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  background: var(--vp-c-brand);
-  color: var(--cyber-bg-primary);
-  border-radius: 50%;
-  font-weight: 600;
-  font-size: 0.875rem;
-  flex-shrink: 0;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
 }
 
-.step-content {
-  color: var(--cyber-text-secondary);
-  line-height: 1.5;
-  align-self: center;
+.screenshot-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyber-border);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.screenshot-indicator.active {
+  background: var(--vp-c-brand);
+  width: 32px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px var(--vp-c-brand);
+}
+
+.screenshot-indicator:hover:not(.active) {
+  background: var(--vp-c-brand-light);
+  transform: scale(1.2);
 }
 
 /* 常见问题 */
 .faqs-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .faq-item {
   background: var(--cyber-bg-primary);
   border: 1px solid var(--cyber-border);
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   overflow: hidden;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .faq-item:hover {
   border-color: var(--cyber-border-hover);
+  box-shadow: 0 4px 16px rgba(0, 255, 136, 0.1);
+  transform: translateX(4px);
 }
 
 .faq-question {
@@ -954,7 +1282,7 @@ onMounted(async () => {
   max-height: 90vh !important;
   background: var(--cyber-bg-secondary) !important;
   border: 1px solid var(--cyber-border-hover) !important;
-  border-radius: 1rem !important;
+  border-radius: 0.5rem !important;
   overflow: hidden !important;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px var(--cyber-border) !important;
   animation: content-scale-in 0.3s ease-out;
@@ -1026,63 +1354,101 @@ onMounted(async () => {
 
 /* 响应式设计 */
 @media (max-width: 1024px) {
-  .nav-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .nav-carousel-wrapper {
+    gap: 0.75rem;
+  }
+
+  .nav-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .features-carousel {
+    padding: 0 1rem;
+    margin: 0 -1rem;
+  }
+
+  .screenshots-carousel {
+    padding: 0 50px;
+    margin: 0 -1rem;
+  }
+
+  .feature-card {
+    flex: 0 0 280px;
   }
 }
+
 @media (max-width: 768px) {
+  .nav-carousel-wrapper {
+    gap: 0.5rem;
+  }
+
+  .nav-arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-arrow svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
   .module-header {
     flex-direction: column;
     gap: 1.5rem;
   }
-  
+
   .header-left {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .module-image {
     width: 100%;
     height: 200px;
   }
-  
-  .nav-grid {
-    grid-template-columns: repeat(2, 1fr);
+
+  .features-carousel {
+    padding: 0 1rem;
   }
-  
-  .features-grid {
-    grid-template-columns: 1fr;
+
+  .screenshots-carousel {
+    padding: 0 45px;
   }
-  
-  .screenshots-grid {
-    grid-template-columns: 1fr;
+
+  .screenshot-nav {
+    width: 40px;
+    height: 40px;
   }
-  
-  .feature-item {
-    flex-direction: column;
-    gap: 0.75rem;
+
+  .feature-card {
+    flex: 0 0 260px;
+    min-height: 260px;
+    padding: 1.25rem;
   }
-  
-  .config-step {
-    flex-direction: column;
-    gap: 0.75rem;
-    text-align: center;
+
+  .feature-card-icon {
+    font-size: 2rem;
   }
-  
-  .step-number {
-    align-self: center;
+
+  .feature-card-title {
+    font-size: 1rem;
   }
-  
+
+  .screenshot-slide {
+    flex: 0 0 calc(100% - 1.5rem);
+  }
+
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .preview-content {
     max-width: 95vw;
     max-height: 95vh;
   }
-  
+
   .preview-title {
     font-size: 1rem;
     padding: 1.5rem 1rem 0.75rem;
@@ -1090,22 +1456,107 @@ onMounted(async () => {
 }
 
 @media (max-width: 480px) {
-  .nav-grid {
-    grid-template-columns: 1fr;
-  }
-  
   .module-title {
     font-size: 1.5rem;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
   }
-  
+
   .features-section,
   .screenshots-section,
-  .config-section,
   .faqs-section {
     padding: 1rem;
   }
+
+  .features-carousel {
+    padding: 0 1rem;
+  }
+
+  .screenshots-carousel {
+    padding: 0 40px;
+  }
+
+  .screenshot-nav {
+    width: 36px;
+    height: 36px;
+  }
+
+  .screenshot-nav svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .feature-card {
+    flex: 0 0 240px;
+    padding: 1rem;
+  }
+
+  .screenshot-slide {
+    flex: 0 0 calc(100% - 1.5rem);
+  }
+
+  .screenshot-count {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+  }
+}
+
+/* 亮色主题适配 */
+[data-theme="light"] .feature-card {
+  background: var(--cyber-bg-secondary);
+  border-color: var(--cyber-border-hover);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .feature-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 255, 136, 0.12);
+  background: #ffffff;
+}
+
+[data-theme="light"] .features-track::-webkit-scrollbar-thumb {
+  background: var(--vp-c-brand-dark);
+}
+
+[data-theme="light"] .screenshot-nav {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.08), rgba(0, 212, 255, 0.08));
+  border-color: var(--vp-c-brand);
+}
+
+[data-theme="light"] .screenshot-nav:hover:not(.disabled) {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 212, 255, 0.15));
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+[data-theme="light"] .screenshot-slide {
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .screenshot-slide:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.15);
+}
+
+[data-theme="light"] .screenshot-count {
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--vp-c-brand-dark);
+}
+
+[data-theme="light"] .feature-card-description {
+  color: var(--vp-c-text-2);
+}
+
+/* 暗色主题增强 */
+[data-theme="dark"] .feature-card {
+  background: linear-gradient(135deg, rgba(20, 24, 35, 0.8) 0%, rgba(26, 29, 46, 0.7) 100%);
+}
+
+[data-theme="dark"] .feature-card:hover {
+  background: linear-gradient(135deg, rgba(26, 29, 46, 0.95) 0%, rgba(36, 39, 65, 0.9) 100%);
+  box-shadow: 0 12px 40px rgba(0, 255, 136, 0.2);
+}
+
+[data-theme="dark"] .screenshot-slide {
+  background: rgba(20, 24, 35, 0.6);
 }
 </style>

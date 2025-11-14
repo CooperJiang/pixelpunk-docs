@@ -1,8 +1,8 @@
 ---
 layout: page
 title: 在线演示
-titleTemplate: PixelPunk 版本预览
-description: 体验不同版本的 PixelPunk，每个版本都有独特的功能和特性
+titleTemplate: PixelPunk 在线演示
+description: 体验 PixelPunk 的不同版本，探索图床系统的强大功能
 ---
 
 <VersionPreview />
