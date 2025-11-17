@@ -61,7 +61,17 @@
                   </h3>
                 </div>
               </div>
-              
+
+              <!-- 功能展示图 -->
+              <div v-if="feature.image" class="feature-image-wrapper">
+                <img
+                  :src="feature.image"
+                  :alt="feature.title"
+                  class="feature-image"
+                  loading="lazy"
+                />
+              </div>
+
               <!-- 卡片内容 -->
               <div class="feature-content">
                 <p class="feature-description" :style="{color: 'var(--cyber-text-secondary)'}">
@@ -158,6 +168,7 @@ const originalFeatures = [
     icon: '🤖',
     title: 'AI 智能分析',
     description: '集成AI多模态大模型，提供深度图像内容分析，智能生成标签和描述，全自动化处理流程。',
+    image: 'https://cdn.pixelpunk.cc/f/43bcec1bf9054a5c/image.png',
     items: [
       '智能自动资源分类',
       '智能自动标签生成',
@@ -167,12 +178,13 @@ const originalFeatures = [
       '色彩分析和调色板提取',
       'AI队列管理与监控'
     ],
-    tags: ['GPT Vision', 'Gemini', 'OpenAi', 'NSFW Detection', 'Queue Management']
+    tags: ['多模态AI', 'NSFW Detection', 'Queue Management', 'Auto Tagging']
   },
   {
     icon: '🔍',
     title: '向量搜索引擎',
     description: '基于Qdrant向量数据库，支持以文搜图、以图搜图、语义搜索，智能理解图片内容，精准推荐相似图片。',
+    image: 'https://cdn.pixelpunk.cc/f/b62c6a2976b84936/image.png',
     items: [
       '以文搜图（自然语言查询）',
       '以图搜图（相似度检索）',
@@ -187,6 +199,7 @@ const originalFeatures = [
     icon: '🖼️',
     title: '文件管理系统',
     description: '企业级文件管理解决方案，支持分片上传、断点续传、秒传去重、无限层级文件夹，批量操作高效便捷。',
+    image: 'https://cdn.pixelpunk.cc/f/7c1096befca74dbf/image.png',
     items: [
       '分片上传与断点续传',
       'MD5秒传去重',
@@ -202,6 +215,7 @@ const originalFeatures = [
     icon: '🎨',
     title: '图片智能处理',
     description: '自动压缩优化、格式转换、多尺寸缩略图生成、水印配置，全方位的图片处理能力，保障质量与效率。',
+    image: 'https://cdn.pixelpunk.cc/f/89e26f624d7c4481/image.png',
     items: [
       '自动压缩优化',
       'WebP格式转换',
@@ -677,6 +691,44 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+}
+
+/* 功能展示图样式 */
+.feature-image-wrapper {
+  width: 100%;
+  margin-bottom: 1.25rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(5, 217, 232, 0.2);
+  box-shadow: 0 4px 12px rgba(5, 217, 232, 0.1);
+  transition: all 0.3s ease;
+}
+
+.carousel-card:hover .feature-image-wrapper {
+  border-color: rgba(5, 217, 232, 0.4);
+  box-shadow: 0 8px 24px rgba(5, 217, 232, 0.2);
+}
+
+.feature-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.carousel-card:hover .feature-image {
+  transform: scale(1.05);
+}
+
+[data-theme="dark"] .feature-image-wrapper {
+  border-color: rgba(5, 217, 232, 0.15);
+  box-shadow: 0 4px 12px rgba(5, 217, 232, 0.08);
+}
+
+[data-theme="dark"] .carousel-card:hover .feature-image-wrapper {
+  border-color: rgba(5, 217, 232, 0.3);
+  box-shadow: 0 8px 24px rgba(5, 217, 232, 0.15);
 }
 
 .feature-icon {

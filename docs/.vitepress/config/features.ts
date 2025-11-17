@@ -38,11 +38,11 @@ export const featureModules: FeatureModule[] = [
     icon: '✨',
     color: '#00d4ff',
     bgColor: 'rgba(0, 212, 255, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/b06a725752a24470/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/b06a725752a24470/image.png',
+      'https://v1.pixelpunk.cc/f/b33553920a7c4f2a/image.png',
+      'https://v1.pixelpunk.cc/f/35705fcb19334a73/image.png'
     ],
     features: [
       {
@@ -105,11 +105,11 @@ export const featureModules: FeatureModule[] = [
     icon: '🔍',
     color: '#00ff88',
     bgColor: 'rgba(0, 255, 136, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/f45a049edfb04d0b/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/f45a049edfb04d0b/image.png',
+      'https://v1.pixelpunk.cc/f/b1db3a5b44464d31/image.png',
+      'https://v1.pixelpunk.cc/f/a8944ff6b3f2466f/image.png'
     ],
     features: [
       {
@@ -172,11 +172,11 @@ export const featureModules: FeatureModule[] = [
     icon: '📁',
     color: '#ff6b6b',
     bgColor: 'rgba(255, 107, 107, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/809016dcdf63438c/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/809016dcdf63438c/image.png',
+      'https://v1.pixelpunk.cc/f/c1800a938cf44a3e/image.png',
+      'https://v1.pixelpunk.cc/f/fe1228d2be7e4fe9/image.png'
     ],
     features: [
       {
@@ -253,11 +253,10 @@ export const featureModules: FeatureModule[] = [
     icon: '🔗',
     color: '#a78bfa',
     bgColor: 'rgba(167, 139, 250, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/7eaa680b4a36495e/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/ac53648763094eef/image.png',
+      'https://v1.pixelpunk.cc/f/4311e852caeb43db/image.png'
     ],
     features: [
       {
@@ -327,10 +326,10 @@ export const featureModules: FeatureModule[] = [
     icon: '☁️',
     color: '#fbbf24',
     bgColor: 'rgba(251, 191, 36, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/edf2889e766b4f39/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/edf2889e766b4f39/image.png',
+      'https://v1.pixelpunk.cc/f/624cc52d7f7d4164/image.png'
     ],
     features: [
       {
@@ -400,10 +399,10 @@ export const featureModules: FeatureModule[] = [
     icon: '🏷️',
     color: '#ec4899',
     bgColor: 'rgba(236, 72, 153, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/e013a5b456cb4cb4/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/e013a5b456cb4cb4/image.png',
+      'https://v1.pixelpunk.cc/f/9c59093233aa4753/image.png'
     ],
     features: [
       {
@@ -473,10 +472,10 @@ export const featureModules: FeatureModule[] = [
     icon: '🔎',
     color: '#3b82f6',
     bgColor: 'rgba(59, 130, 246, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/8a9b9227a1384a5c/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/8a9b9227a1384a5c/image.png',
+      'https://v1.pixelpunk.cc/f/37aff03d8d524f58/image.png'
     ],
     features: [
       {
@@ -546,11 +545,12 @@ export const featureModules: FeatureModule[] = [
     icon: '👥',
     color: '#10b981',
     bgColor: 'rgba(16, 185, 129, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/76b425e1e03d4884/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/0d6a0e8f5ef54a31/image.png',
+      'https://v1.pixelpunk.cc/f/554ec4478b6e40ec/image.png',
+      'https://v1.pixelpunk.cc/f/4a0bae6ae5dc4da5/image.png',
+      'https://v1.pixelpunk.cc/f/76b425e1e03d4884/image.png'
     ],
     features: [
       {
@@ -620,11 +620,10 @@ export const featureModules: FeatureModule[] = [
     icon: '🛡️',
     color: '#f59e0b',
     bgColor: 'rgba(245, 158, 11, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/2247477749934df5/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/2247477749934df5/image.png',
+      'https://v1.pixelpunk.cc/f/08350cf5f44a4f7c/image.png'
     ],
     features: [
       {
@@ -694,11 +693,11 @@ export const featureModules: FeatureModule[] = [
     icon: '⚙️',
     color: '#6366f1',
     bgColor: 'rgba(99, 102, 241, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/44f2dff954424503/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/44f2dff954424503/image.png',
+      'https://v1.pixelpunk.cc/f/9a2dccbf37074015/image.png',
+      'https://v1.pixelpunk.cc/f/a9a3da22697a4bf4/image.png'
     ],
     features: [
       {
@@ -769,90 +768,16 @@ export const featureModules: FeatureModule[] = [
     version: 'v1.0.0'
   },
   {
-    id: 'dashboard-analytics',
-    name: '数据统计',
-    description: '可视化仪表板，展示文件数量、存储使用、上传趋势、热门标签等统计数据，支持ECharts图表展示。',
-    icon: '📊',
-    color: '#14b8a6',
-    bgColor: 'rgba(20, 184, 166, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
-    screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
-    ],
-    features: [
-      {
-        id: 'file-statistics',
-        title: '文件统计',
-        description: '展示文件总数、存储总量、今日上传等核心指标',
-        icon: '📁',
-        category: 'analytics'
-      },
-      {
-        id: 'upload-trend',
-        title: '上传趋势',
-        description: '折线图展示每日/每周/每月的上传数量和存储增长趋势',
-        icon: '📈',
-        category: 'analytics'
-      },
-      {
-        id: 'storage-distribution',
-        title: '存储分布',
-        description: '饼图展示不同存储通道、文件类型的存储占比',
-        icon: '🥧',
-        category: 'analytics'
-      },
-      {
-        id: 'tag-cloud',
-        title: '标签云',
-        description: '展示热门标签和使用频率，可视化标签分布',
-        icon: '☁️',
-        category: 'analytics'
-      },
-      {
-        id: 'user-activity',
-        title: '用户活跃度',
-        description: '统计活跃用户、上传排行、存储占用排行',
-        icon: '👥',
-        category: 'analytics'
-      },
-      {
-        id: 'export-reports',
-        title: '导出报表',
-        description: '支持导出统计数据为Excel/CSV格式，方便进一步分析',
-        icon: '📤',
-        category: 'analytics'
-      }
-    ],
-    faqs: [
-      {
-        question: '统计数据是实时的吗？',
-        answer: '核心指标是实时计算的，部分复杂统计会使用Redis缓存，每5分钟更新一次。'
-      },
-      {
-        question: '可以查看历史数据吗？',
-        answer: '支持！您可以选择时间范围查看历史统计数据，默认保留最近90天的详细数据。'
-      },
-      {
-        question: '能否自定义统计维度？',
-        answer: '管理员可以在设置中添加自定义统计指标，系统会自动采集和展示。'
-      }
-    ],
-    status: 'stable',
-    version: 'v1.0.0'
-  },
-  {
     id: 'internationalization',
     name: '国际化支持',
     description: '完整的多语言支持，内置中文、英文、日文三种语言，支持动态切换和自定义翻译。',
     icon: '🌏',
     color: '#8b5cf6',
     bgColor: 'rgba(139, 92, 246, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/f63582acd81c4d51/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/f63582acd81c4d51/image.png',
+      'https://v1.pixelpunk.cc/f/96e850a8c6dc4b9e/image.png'
     ],
     features: [
       {
@@ -904,11 +829,10 @@ export const featureModules: FeatureModule[] = [
     icon: '🎨',
     color: '#f43f5e',
     bgColor: 'rgba(244, 63, 94, 0.1)',
-    image: '/images/demo/ai-analysis-demo.webp',
+    image: 'https://v1.pixelpunk.cc/f/c654f65cbd9b4d73/image.png',
     screenshots: [
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp',
-      '/images/demo/ai-analysis-demo.webp'
+      'https://v1.pixelpunk.cc/f/c654f65cbd9b4d73/image.png',
+      'https://v1.pixelpunk.cc/f/d21059f9a0c24b30/image.png'
     ],
     features: [
       {

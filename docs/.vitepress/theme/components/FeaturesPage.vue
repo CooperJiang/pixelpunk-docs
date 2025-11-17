@@ -794,6 +794,8 @@ onMounted(async () => {
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .module-image:hover .main-image {
@@ -806,6 +808,8 @@ onMounted(async () => {
   background: linear-gradient(45deg, var(--cyber-border) 0%, transparent 50%);
   opacity: 0.1;
   transition: opacity 0.3s ease;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .module-image:hover .image-overlay {
@@ -819,15 +823,18 @@ onMounted(async () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.75), rgba(0, 255, 136, 0.3));
   color: white;
   opacity: 0;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
+  transition: all 0.4s ease;
+  backdrop-filter: blur(8px);
+  z-index: 10;
+  pointer-events: none;
 }
 
 .module-image:hover .image-preview-hint {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .preview-icon {
@@ -1120,6 +1127,8 @@ onMounted(async () => {
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
+  position: relative;
+  z-index: 1;
 }
 
 .screenshot-slide:hover .screenshot-image {
@@ -1133,6 +1142,7 @@ onMounted(async () => {
   opacity: 0.05;
   transition: opacity 0.3s ease;
   pointer-events: none;
+  z-index: 2;
 }
 
 .screenshot-slide:hover .screenshot-overlay {
@@ -1147,15 +1157,18 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.75);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.75), rgba(0, 255, 136, 0.3));
   color: white;
   opacity: 0;
   transition: all 0.4s ease;
   backdrop-filter: blur(8px);
+  z-index: 10;
+  pointer-events: none;
 }
 
 .screenshot-slide:hover .screenshot-preview-hint {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .preview-icon {

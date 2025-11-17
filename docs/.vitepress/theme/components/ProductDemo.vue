@@ -266,22 +266,22 @@ const tabs = [
   {
     name: 'AI 分析',
     title: 'AI 智能图像分析',
-    description: '集成 GPT-4V、Claude Vision 等多模型，提供深度图像理解、自动标签生成和内容安全检测。',
+    description: '集成AI多模态大模型，提供深度图像理解、自动标签生成和内容安全检测。',
     screenTitle: 'AI 分析控制台',
     icon: '🤖',
-    demoImage: '/images/demo/ai-analysis-demo.webp',
+    demoImage: 'https://cdn.pixelpunk.cc/f/43bcec1bf9054a5c/image.png',
     mockData: {
       preview: '智能分析中...',
       note: '展示AI分析结果、标签生成、安全评分等功能',
       stats: [
         '已分析图片: 1,234,567',
-        '生成标签: 15,678,901', 
+        '生成标签: 15,678,901',
         '安全检测: 100%',
         '平均响应: 1.2秒'
       ]
     },
     features: [
-      '多模型智能分析（GPT-4V、Claude、Gemini）',
+      '多模态AI智能分析',
       '自动生成语义化标签和描述',
       '内容安全检测和合规评分',
       '图片质量和技术参数分析',
@@ -312,7 +312,7 @@ const tabs = [
     description: '基于 1536 维向量空间的语义搜索，支持以图搜图、自然语言搜索和智能推荐。',
     screenTitle: '搜索引擎控制台',
     icon: '🔍',
-    demoImage: '/images/demo/image-management-demo.webp',
+    demoImage: 'https://cdn.pixelpunk.cc/f/b62c6a2976b84936/image.png',
     mockData: {
       preview: '管理系统界面',
       note: '展示文件夹管理、批量操作、智能分类等功能',
@@ -355,7 +355,7 @@ const tabs = [
     description: '完整的企业级管理功能，包括用户权限、带宽控制、成本分析和合规监管。',
     screenTitle: '企业管理面板',
     icon: '👑',
-    demoImage: '/images/demo/cloud-storage-demo.webp',
+    demoImage: 'https://cdn.pixelpunk.cc/f/7c1096befca74dbf/image.png',
     mockData: {
       preview: '企业管理控制台',
       note: '展示用户权限、带宽控制、成本分析等功能',
@@ -398,7 +398,7 @@ const tabs = [
     description: '多层安全防护，包括内容审核、防盗链保护、访问控制和数据加密。',
     screenTitle: '安全控制台',
     icon: '🛡️',
-    demoImage: '/images/demo/sharing-system-demo.webp',
+    demoImage: 'https://cdn.pixelpunk.cc/f/89e26f624d7c4481/image.png',
     mockData: {
       preview: '安全防护面板',
       note: '展示内容审核、防盗链、访问控制等功能',
@@ -672,6 +672,9 @@ onUnmounted(() => {
   object-position: center;
   border-radius: 0;
   display: block;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s ease;
 }
 
 .demo-placeholder {
@@ -967,16 +970,18 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.75), rgba(5, 217, 232, 0.3));
   color: white;
   opacity: 0;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
-  z-index: 5;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(8px);
+  z-index: 10;
+  pointer-events: none;
 }
 
 .demo-screen-content.clickable:hover .demo-preview-hint {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .preview-icon {

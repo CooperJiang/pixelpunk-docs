@@ -6,6 +6,12 @@ export const zh = defineConfig({
   description: 'AI 智能图床平台 - 赛博朋克风格的新一代图片存储管理系统',
 
   themeConfig: {
+    // Logo 和社交链接
+    logo: '/logo.png',
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/CooperJiang/PixelPunk' }
+    ],
+
     // 导航栏
     nav: [
       { text: '首页', link: '/' },

@@ -19,7 +19,7 @@
               <div class="slogan-text">
                 <span class="slogan-brand">PixelPunk</span>
                 <span class="slogan-separator">·</span>
-                <span class="slogan-concept">最强大的开源图床平台</span>
+                <span class="slogan-concept">强大的开源图床平台</span>
               </div>
             </div>
             
