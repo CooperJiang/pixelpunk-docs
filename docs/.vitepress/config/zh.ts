@@ -25,7 +25,7 @@ export const zh = defineConfig({
           { text: '开放 API', link: '/docs/api/upload' }
         ]
       },
-      { text: '更新日志', link: '/updates' },
+      { text: '更新日志', link: '/changelog' },
       { text: '演示', link: '/demo' },
       { text: '反馈', link: '/feedback' },
       { text: '下载', link: '/download' }

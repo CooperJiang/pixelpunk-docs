@@ -25,6 +25,129 @@ export interface UpdateLog {
 
 export const updateLogs: UpdateLog[] = [
   {
+    version: 'v1.0.1',
+    date: '2025-11-19',
+    title: '稳定性提升与功能优化 🔧',
+    description: '本次更新专注于修复关键问题、提升用户体验和增强上传功能。修复了 6 个重要 Bug，新增了重复图检测开关、文件夹拖拽上传等实用功能，并优化了大批量文件上传性能。',
+    image: 'https://cdn.pixelpunk.cc/f/c1c57e5970b14cc5/image.png',
+    highlights: [
+      '🐛 修复 6 个关键问题，包括 Setup 安装、Docker 配置、WebDAV 渠道等',
+      '✨ 新增重复图检测开关，大幅降低大量图片时的性能消耗',
+      '📁 支持文件夹拖拽上传，自动解析允许的文件格式',
+      '🔗 新增多种链接格式复制（Markdown、HTML、缩略图）',
+      '⚡ 优化大批量文件上传性能和界面交互体验'
+    ],
+    updates: [
+      // Bug 修复
+      {
+        id: 'fix-setup-loop',
+        title: '修复 Setup 安装流程问题',
+        description: '修复修改 root 默认账户后重启服务再次进入安装页面的问题，确保安装流程正确完成',
+        type: 'bugfix',
+        icon: '🔧'
+      },
+      {
+        id: 'fix-docker-config',
+        title: '修复 Docker 配置文件问题',
+        description: '修复手动启动 Docker 镜像时配置文件被错误创建为文件夹的问题',
+        type: 'bugfix',
+        icon: '🐳'
+      },
+      {
+        id: 'fix-webdav-channel',
+        title: '修复 WebDAV 渠道错误',
+        description: '修复 WebDAV 渠道提示"不支持的渠道类型"的问题，恢复正常使用',
+        type: 'bugfix',
+        icon: '🔧'
+      },
+      {
+        id: 'fix-deployment-docs',
+        title: '修复部署文档错误',
+        description: '修复部分部署文档中的错误内容，提升文档准确性',
+        type: 'bugfix',
+        icon: '📝'
+      },
+      {
+        id: 'fix-upload-cancel',
+        title: '修复取消上传功能',
+        description: '修复上传过程中取消上传功能失效的问题，恢复中断控制',
+        type: 'bugfix',
+        icon: '🔧'
+      },
+      {
+        id: 'fix-i18n-menu',
+        title: '修复多语言翻译错误',
+        description: '修复 Folders 页面右键菜单加载文件夹时的多语言翻译错误',
+        type: 'bugfix',
+        icon: '🌍'
+      },
+      // 新功能
+      {
+        id: 'duplicate-detection-toggle',
+        title: '重复图检测开关配置',
+        description: '新增重复图检测功能开关配置，可降低前端大量图片时的 MD5 比对性能消耗。配置路径：管理中心 → 全局设置 → 上传设置',
+        type: 'feature',
+        icon: '🎛️'
+      },
+      {
+        id: 'folder-drag-upload',
+        title: '文件夹拖拽上传',
+        description: '新增上传页面文件夹选择功能，支持拖拽文件夹并自动解析允许的文件格式',
+        type: 'feature',
+        icon: '📁'
+      },
+      {
+        id: 'multiple-link-formats',
+        title: '多种链接格式复制',
+        description: '上传页面支持 Markdown、HTML、缩略图格式的链接复制；文件夹右键菜单新增 Markdown 格式、HTML 格式链接复制选项',
+        type: 'feature',
+        icon: '🔗'
+      },
+      {
+        id: 'batch-link-copy',
+        title: '批量链接复制',
+        description: '新增上传页面批量链接复制功能，提升批量操作效率',
+        type: 'feature',
+        icon: '📋'
+      },
+      // 优化改进
+      {
+        id: 'optimize-duplicate-detection',
+        title: '优化重复图检测性能',
+        description: '优化大批量文件上传时重复图检测的性能消耗，提升上传速度',
+        type: 'improvement',
+        icon: '⚡'
+      },
+      {
+        id: 'optimize-upload-layout',
+        title: '优化上传页面布局',
+        description: '优化上传页面按钮排版布局，提升界面美观度和操作便捷性',
+        type: 'improvement',
+        icon: '🎨'
+      },
+      {
+        id: 'optimize-upload-interaction',
+        title: '优化按钮交互体验',
+        description: '优化上传页面按钮交互，增加 Tooltip 提示信息，提升用户体验',
+        type: 'improvement',
+        icon: '💡'
+      },
+      {
+        id: 'simplify-install-script',
+        title: '简化安装脚本',
+        description: '简化安装脚本，移除版本选择功能，后续发布将始终使用最新版本',
+        type: 'improvement',
+        icon: '🚀'
+      }
+    ],
+    author: {
+      name: 'PixelPunk Team',
+      avatar: '/images/avatar/author_avatar.jpg',
+      url: 'https://github.com/CooperJiang'
+    },
+    tags: ['Bug Fix', 'Feature', 'Optimization', 'Upload', 'Performance']
+  },
+  {
     version: 'v1.0.0',
     date: '2025-11-15',
     title: 'PixelPunk 首个正式版本发布 🎉',

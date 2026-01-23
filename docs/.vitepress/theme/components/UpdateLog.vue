@@ -116,31 +116,39 @@
               </div>
             </div>
 
-            <!-- 详细更新列表 - 超紧凑 -->
+            <!-- 详细更新列表 - 按类型分组 -->
             <div class="updates-section">
               <h3 class="section-title mt-0">
                 <span class="title-icon">📋</span>
                 详细更新内容
               </h3>
-              
-              <div class="updates-mini">
-                <div 
-                  v-for="update in getFilteredUpdates(log.updates)" 
-                  :key="update.id"
-                  class="update-item-mini"
-                  :data-type="update.type"
-                >
-                  <div class="update-type-badge-mini" :style="getTypeStyle(update.type)">
-                    <span class="type-icon">{{ updateCategories[update.type]?.icon || update.icon }}</span>
-                    <span class="type-label">{{ updateCategories[update.type]?.label }}</span>
-                  </div>
-                  
-                  <div class="update-content-mini">
-                    <h4 class="update-item-title-mini">
-                      <span v-if="update.icon" class="item-icon">{{ update.icon }}</span>
-                      {{ update.title }}
-                    </h4>
-                    <p class="update-item-description-mini">{{ update.description }}</p>
+
+              <!-- 按类型分组显示 -->
+              <div
+                v-for="(group, groupType) in getGroupedUpdates(log.updates)"
+                :key="groupType"
+                class="update-group"
+              >
+                <div class="group-header">
+                  <span class="group-icon">{{ updateCategories[groupType]?.icon }}</span>
+                  <span class="group-title">{{ updateCategories[groupType]?.label }}</span>
+                  <span class="group-count">{{ group.length }}</span>
+                </div>
+
+                <div class="updates-mini">
+                  <div
+                    v-for="update in group"
+                    :key="update.id"
+                    class="update-item-mini"
+                    :data-type="update.type"
+                  >
+                    <div class="update-content-mini">
+                      <h4 class="update-item-title-mini">
+                        <span v-if="update.icon" class="item-icon">{{ update.icon }}</span>
+                        {{ update.title }}
+                      </h4>
+                      <p class="update-item-description-mini">{{ update.description }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -211,6 +219,34 @@ const monthsActive = computed(() => {
 const getFilteredUpdates = (updates: UpdateItem[]) => {
   if (selectedFilter.value === 'all') return updates
   return updates.filter(update => update.type === selectedFilter.value)
+}
+
+// 按类型分组更新项（保持特定顺序）
+const getGroupedUpdates = (updates: UpdateItem[]) => {
+  const filteredUpdates = getFilteredUpdates(updates)
+
+  // 定义显示顺序
+  const typeOrder = ['feature', 'improvement', 'bugfix', 'breaking']
+
+  // 按类型分组
+  const grouped: Record<string, UpdateItem[]> = {}
+
+  filteredUpdates.forEach(update => {
+    if (!grouped[update.type]) {
+      grouped[update.type] = []
+    }
+    grouped[update.type].push(update)
+  })
+
+  // 按指定顺序返回分组
+  const orderedGroups: Record<string, UpdateItem[]> = {}
+  typeOrder.forEach(type => {
+    if (grouped[type] && grouped[type].length > 0) {
+      orderedGroups[type] = grouped[type]
+    }
+  })
+
+  return orderedGroups
 }
 
 // 获取类型样式
@@ -675,11 +711,88 @@ onMounted(async () => {
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--cyber-text-primary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .title-icon {
   font-size: 1.1rem;
+}
+
+/* 更新分组样式 */
+.update-group {
+  margin-bottom: 1.5rem;
+}
+
+.update-group:last-child {
+  margin-bottom: 0;
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--cyber-border);
+  border-left: 3px solid var(--vp-c-brand);
+  border-radius: 0.375rem;
+  margin-bottom: 0.75rem;
+}
+
+.group-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.group-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cyber-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.group-count {
+  margin-left: auto;
+  padding: 0.125rem 0.5rem;
+  background: var(--vp-c-brand);
+  color: var(--cyber-bg-primary);
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+/* 不同类型的分组颜色 */
+.update-group:has([data-type="feature"]) .group-header {
+  border-left-color: var(--vp-c-brand);
+}
+
+.update-group:has([data-type="feature"]) .group-count {
+  background: var(--vp-c-brand);
+}
+
+.update-group:has([data-type="improvement"]) .group-header {
+  border-left-color: var(--vp-c-brand-light);
+}
+
+.update-group:has([data-type="improvement"]) .group-count {
+  background: var(--vp-c-brand-light);
+}
+
+.update-group:has([data-type="bugfix"]) .group-header {
+  border-left-color: #10b981;
+}
+
+.update-group:has([data-type="bugfix"]) .group-count {
+  background: #10b981;
+}
+
+.update-group:has([data-type="breaking"]) .group-header {
+  border-left-color: var(--vp-c-warning);
+}
+
+.update-group:has([data-type="breaking"]) .group-count {
+  background: var(--vp-c-warning);
 }
 
 /* 超紧凑的更新列表 */
@@ -698,6 +811,21 @@ onMounted(async () => {
   border-radius: 0.5rem;
   transition: all 0.3s ease;
   align-items: flex-start;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.update-item-mini::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--cyber-border-hover);
+  border-radius: 0 2px 2px 0;
+  transition: all 0.3s ease;
 }
 
 .update-item-mini:hover {
@@ -706,24 +834,9 @@ onMounted(async () => {
   background: var(--cyber-border);
 }
 
-.update-type-badge-mini {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.5rem;
-  background: var(--type-bg, var(--cyber-border));
-  border: 1px solid var(--type-color, var(--cyber-border-hover));
-  border-radius: 0.25rem;
-  color: var(--type-color, var(--cyber-text-primary));
-  font-size: 0.65rem;
-  font-weight: 500;
-  white-space: nowrap;
-  flex-shrink: 0;
-  min-width: 70px;
-}
-
-.update-type-badge-mini .type-icon {
-  font-size: 0.75rem;
+.update-item-mini:hover::before {
+  height: 80%;
+  background: var(--vp-c-brand);
 }
 
 .update-content-mini {

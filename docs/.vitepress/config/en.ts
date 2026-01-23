@@ -20,7 +20,7 @@ export const en = defineConfig({
           { text: 'API Docs', link: '/en/docs/api/overview' }
         ]
       },
-      { text: 'Updates', link: '/en/updates' },
+      { text: 'Changelog', link: '/en/changelog' },
       { text: 'Demo', link: '/en/demo' },
       { text: 'Feedback', link: '/en/feedback' },
       { text: 'Download', link: '/en/download' }
